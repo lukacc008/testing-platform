@@ -2,10 +2,12 @@ import { useState, useCallback } from "react";
 
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
+import StartScreen from "./StartScreen.jsx";
 import quizCompleteImg from "../assets/quiz-complete.png";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
+  const [userReady, setUserReady] = useState(false);
 
   const activeQuestionIndex = userAnswers.length;
 
@@ -17,6 +19,10 @@ export default function Quiz() {
     });
   }, []);
 
+  function onStart() {
+    setUserReady(true)
+  }
+
   const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
 
   if (quizIsComplete) {
@@ -26,6 +32,12 @@ export default function Quiz() {
         <h2>Quiz Completed!</h2>
       </div>
     );
+  }
+
+  if (!userReady) {
+    return (
+      <StartScreen onStart={onStart}/>
+    )
   }
 
   const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
