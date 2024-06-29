@@ -6,6 +6,7 @@ import StartScreen from "./StartScreen.jsx";
 import quizCompleteImg from "../assets/quiz-complete.png";
 
 export default function Quiz() {
+  const [answerState, setAnswerState] = useState("");
   const [userAnswers, setUserAnswers] = useState([]);
   const [userReady, setUserReady] = useState(false);
 
@@ -13,17 +14,32 @@ export default function Quiz() {
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer) {
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
+    setAnswerState("answered");
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
-  }, []);
+
+    setTimeout(() => {
+      if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
+        setAnswerState('correct');
+      } else {
+        setAnswerState('wrong');
+      }
+    }, 1000)
+  },
+  []);
 
   function onStart() {
-    setUserReady(true)
+    setUserReady(true);
   }
 
-  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
   if (quizIsComplete) {
     return (
@@ -35,9 +51,7 @@ export default function Quiz() {
   }
 
   if (!userReady) {
-    return (
-      <StartScreen onStart={onStart}/>
-    )
+    return <StartScreen onStart={onStart} />;
   }
 
   const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
