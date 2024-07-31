@@ -1,13 +1,13 @@
-const logEvents = require('./logEvents');
-const EventEmitter = require('events');
+// const logEvents = require('./logEvents');
+// const EventEmitter = require('events');
 
-class MyEmitter extends EventEmitter {};
+// class MyEmitter extends EventEmitter {};
 
-// initialize object
-const myEmitter = new MyEmitter();
+// // initialize object
+// const myEmitter = new MyEmitter();
 
-// add listener for the log event
-myEmitter.on('log', (msg) => logEvents(msg));
+// // add listener for the log event
+// myEmitter.on('log', (msg) => logEvents(msg));
 
-// Emit a log event
-myEmitter.emit('log', 'Log event emitted!');
+// // Emit a log event
+// myEmitter.emit('log', 'Log event emitted!');
