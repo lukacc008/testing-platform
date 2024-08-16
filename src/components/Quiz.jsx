@@ -4,10 +4,14 @@ import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
+import Header from "./Header.jsx";
 
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import Register from "./Register.jsx";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userReady, setUserReady] = useState(false);
 
   const activeQuestionIndex = userAnswers.length;
@@ -32,8 +36,20 @@ export default function Quiz() {
   );
 
   if (quizIsComplete) {
+    return <Summary userAnswers={userAnswers} />;
+  }
+
+  if (!userLoggedIn) {
     return (
-      <Summary userAnswers={userAnswers}/>
+      <BrowserRouter>
+      <div>
+        <h2>Please log in or register:</h2>
+        <Link to="/register">Register</Link>
+      </div>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
     );
   }
 

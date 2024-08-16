@@ -1,3 +1,4 @@
+// Pulling out the users so we can check out the database.
 const usersDB = {
     users: require('../model/users.json'),
     setUsers: function (data) { this.users = data }

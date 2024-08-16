@@ -1,3 +1,4 @@
+// Pulling out the users so we can check out the database.
 const usersDB = {
     users: require('../model/users.json'),
     setUsers: function (data) { this.users = data }
@@ -41,7 +42,7 @@ const handleLogin = async (req, res) => {
             path.join(__dirname, '..', 'model', 'users.json'),
             JSON.stringify(usersDB.users)
         );
-        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 24 * 60 * 60 * 1000 });
         res.json({ accessToken });
     } else {
         res.sendStatus(401);
