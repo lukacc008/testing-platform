@@ -1,12 +1,9 @@
 import { useState, useCallback } from "react";
-
+import { Route, Routes, Link } from "react-router-dom";
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
-import Header from "./Header.jsx";
-
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Register from "./Register.jsx";
 
 export default function Quiz() {
@@ -41,15 +38,13 @@ export default function Quiz() {
 
   if (!userLoggedIn) {
     return (
-      <BrowserRouter>
       <div>
         <h2>Please log in or register:</h2>
         <Link to="/register">Register</Link>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+        </Routes>
       </div>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
     );
   }
 

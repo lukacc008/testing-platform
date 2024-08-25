@@ -5,6 +5,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -79,11 +80,11 @@ const Register = () => {
       // clear input fields
     } catch (err) {
       if (!err.response) {
-        setErrMsg('No Server Response');
+        setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg('Username Taken');
+        setErrMsg("Username Taken");
       } else {
-        setErrMsg('Registration Failed')
+        setErrMsg("Registration Failed");
       }
       errRef.current.focus();
     }
@@ -221,6 +222,13 @@ const Register = () => {
               Sign Up
             </button>
           </form>
+          <p>
+            Already registered?
+            <br />
+            <span className="line">
+              <Link to="/login">Sign In</Link>
+            </span>
+          </p>
         </section>
       )}
     </>
