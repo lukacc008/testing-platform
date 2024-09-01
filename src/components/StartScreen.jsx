@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Register from "./Register";
+import AuthContext from "../context/AuthProvider";
 
 function StartScreen({ onStart }) {
+  const { userLoggedIn } = useContext(AuthContext);
+
   return (
     <>
       <div id="start">
         <p>By pressing the 'I AM READY' button your test will begin.</p>
-        <p style={{ color: "red" }}>
-          Any unanswered questions will be marked as skipped which is basically wrong.
-        </p>
+        <ul style={{ color: "red" }}>
+          <li>Any unanswered questions will be marked as skipped.</li>
+          <li>If the window loses focus, the answer will be marked as wrong.</li>
+          <li>If the timer expires, the answer will be marked as wrong.</li>
+        </ul>
         <button onClick={onStart}>I AM READY</button>
       </div>
-      <Register />
+      {!userLoggedIn && <Register />}
     </>
   );
 }

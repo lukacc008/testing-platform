@@ -1,15 +1,15 @@
 import { useRef, useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
-
-import { Link } from "react-router-dom";
-
 import axios from '../api/axios';
+
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth, setUserLoggedIn } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
@@ -18,11 +18,11 @@ const Login = () => {
 
     useEffect(() => {
         userRef.current.focus();
-    }, [])
+    }, []);
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [user, pwd]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,13 +36,14 @@ const Login = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, accessToken });
             setUser('');
             setPwd('');
             setSuccess(true);
+            setUserLoggedIn(true); // Set user as logged in
+            // navigate("/"); // Redirect to home after successful login
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -64,7 +65,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <Link to="/">Go to Home</Link>
                     </p>
                 </section>
             ) : (
@@ -102,7 +103,7 @@ const Login = () => {
                 </section>
             )}
         </>
-    )
+    );
 }
 
 export default Login;
