@@ -9,9 +9,9 @@ function StartScreen({ onStart }) {
     <>
       <div id="start">
         <p>By pressing the 'I AM READY' button your test will begin.</p>
-        <ul style={{ color: "red" }}>
+        <ul style={{ color: "black" }}>
           <li>Any unanswered questions will be marked as skipped.</li>
-          <li>If the window loses focus, the answer will be marked as wrong.</li>
+          <li>If the window loses focus, the answer will be marked as wrong and the new question will start immediately.</li>
           <li>If the timer expires, the answer will be marked as wrong.</li>
         </ul>
         <button onClick={onStart}>I AM READY</button>

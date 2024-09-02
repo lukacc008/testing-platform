@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback, useContext, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
@@ -17,22 +17,38 @@ export default function Quiz() {
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(
-    function handleSelectAnswer(selectedAnswer) {
-      setUserAnswers((prevUserAnswers) => {
-        return [...prevUserAnswers, selectedAnswer];
-      });
-    },
-    []
-  );
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
+    setUserAnswers((prevUserAnswers) => {
+      return [...prevUserAnswers, selectedAnswer];
+    });
+  },
+  []);
 
   function onStart() {
     setUserReady(true);
   }
 
-  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [
-    handleSelectAnswer,
-  ]);
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
+
+  useEffect(() => {
+    function handleWindowBlur() {
+      // Mark the question as skipped if the window loses focus
+      handleSkipAnswer();
+    }
+
+    // Add event listener for the window blur event
+    window.addEventListener("blur", handleWindowBlur);
+
+    // Cleanup the event listener when the component is unmounted or when question changes
+    return () => {
+      window.removeEventListener("blur", handleWindowBlur);
+    };
+  }, [handleSkipAnswer]); // Dependency on handleSkipAnswer to ensure correct function reference
 
   if (quizIsComplete) {
     return <Summary userAnswers={userAnswers} />;
