@@ -1,15 +1,49 @@
+import React, { useEffect, useContext } from "react";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions.js";
+import axios from "../api/axios.js";
+import AuthContext from "../context/AuthProvider"; // Import AuthContext
 
 export default function Summary({ userAnswers }) {
-  const skippedAnsawers = userAnswers.filter((answer) => answer === null);
-  const correctAnaswers = userAnswers.filter(
+  const { auth } = useContext(AuthContext); // Access auth from context
+
+  const skippedAnswers = userAnswers.filter((answer) => answer === null);
+  const correctAnswers = userAnswers.filter(
     (answer, index) => answer === QUESTIONS[index].answers[0]
   );
 
-  const skippedAnswersShare = Math.round((skippedAnsawers.length / userAnswers.length) * 100);
-  const correctAnswersShare = Math.round((correctAnaswers.length / userAnswers.length) * 100);
+  const skippedAnswersShare = Math.round(
+    (skippedAnswers.length / userAnswers.length) * 100
+  );
+  const correctAnswersShare = Math.round(
+    (correctAnswers.length / userAnswers.length) * 100
+  );
   const wrongAnswersShare = 100 - skippedAnswersShare - correctAnswersShare;
+
+  // Function to send test results to the server
+  const sendTestResults = async () => {
+    try {
+      const response = await axios.post("/test-results", {
+        username: auth.username, // Use context's username
+        email: auth.email,       // Use context's email
+        correctAnswersShare,
+        skippedAnswersShare,
+        wrongAnswersShare,
+      });
+
+      console.log("Test results saved successfully:", response.data.message);
+    } catch (error) {
+      console.error(
+        "Error while sending test results:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
+  // Send the test results when the component mounts
+  useEffect(() => {
+    sendTestResults();
+  }, []);
 
   return (
     <div id="summary">
@@ -31,8 +65,7 @@ export default function Summary({ userAnswers }) {
       </div>
       <ol>
         {userAnswers.map((answer, index) => {
-
-            //used for conditional rendering of correct skipped and wrong ansewrs
+          //used for conditional rendering of correct skipped and wrong answers
           let cssClass = "user-answer";
 
           if (answer === null) {
