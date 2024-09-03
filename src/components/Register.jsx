@@ -10,6 +10,7 @@ import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REGISTER_URL = "/register";
 
 const Register = () => {
@@ -19,6 +20,10 @@ const Register = () => {
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
@@ -43,6 +48,13 @@ const Register = () => {
   }, [user]);
 
   useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    console.log(result);
+    console.log(email);
+    setValidEmail(result);
+  }, [email]);
+
+  useEffect(() => {
     const result = PWD_REGEX.test(pwd);
     console.log(result);
     console.log(pwd);
@@ -53,21 +65,22 @@ const Register = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd, matchPwd]);
+  }, [user, pwd, matchPwd, email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button was enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
+    const v3 = EMAIL_REGEX.test(email);
+    if (!v1 || !v2 || !v3) {
       setErrMsg("Invalid entry");
       return;
     }
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ user, pwd, email }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -82,7 +95,7 @@ const Register = () => {
       if (!err.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+        setErrMsg("Username or Email Taken");
       } else {
         setErrMsg("Registration Failed");
       }
@@ -96,7 +109,7 @@ const Register = () => {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign in</a>
+            <Link to="/login">Sign in</Link>
           </p>
         </section>
       ) : (
@@ -140,8 +153,40 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               4 to 24 characters.
               <br />
-              Must be with a letter. <br />
               Letters, numbers, underscores, hyphens allowed
+            </p>
+            <label htmlFor="email">
+              Email:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validEmail ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validEmail || !email ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              type="email"
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+              aria-invalid={validEmail ? "false" : "true"}
+              aria-describedby="emailnote"
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+            />
+            <p
+              id="emailnote"
+              className={
+                emailFocus && email && !validEmail
+                  ? "instructions"
+                  : "offscreen"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              Must be a valid email address.
             </p>
 
             <label htmlFor="password">
@@ -217,7 +262,7 @@ const Register = () => {
             </p>
 
             <button
-              disabled={!validName || !validPwd || !validMatch ? true : false}
+              disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}
             >
               Sign Up
             </button>

@@ -6,6 +6,11 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true,
+        // unique: true  MOZDA TREBA MOZDA NE
+    },
     roles: {
         User: {
             type: Number,
