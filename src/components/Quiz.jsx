@@ -36,19 +36,23 @@ export default function Quiz() {
   );
 
   useEffect(() => {
+    // Function to handle window blur event
     function handleWindowBlur() {
       // Mark the question as skipped if the window loses focus
       handleSkipAnswer();
     }
-
-    // Add event listener for the window blur event
-    window.addEventListener("blur", handleWindowBlur);
-
+  
+    // Add event listener for the window blur event only if quiz is not complete
+    if (!quizIsComplete) {
+      window.addEventListener("blur", handleWindowBlur);
+    }
+  
     // Cleanup the event listener when the component is unmounted or when question changes
     return () => {
       window.removeEventListener("blur", handleWindowBlur);
     };
-  }, [handleSkipAnswer]); // Dependency on handleSkipAnswer to ensure correct function reference
+  }, [handleSkipAnswer, quizIsComplete]); // Dependency on handleSkipAnswer and quizIsComplete
+  
 
   if (quizIsComplete) {
     return <Summary userAnswers={userAnswers} />;
