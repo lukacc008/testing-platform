@@ -26,37 +26,47 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+      
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
-            setUser('');
-            setPwd('');
-            setSuccess(true);
-            setUserLoggedIn(true); // Set user as logged in
-            // navigate("/"); // Redirect to home after successful login
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
+          const response = await axios.post(LOGIN_URL,
+            JSON.stringify({ user, pwd }),
+            {
+              headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
             }
-            errRef.current.focus();
+          );
+      
+          console.log(JSON.stringify(response?.data));
+      
+          // Extract the required data from the response
+          const accessToken = response?.data?.accessToken;
+          const roles = response?.data?.roles;
+          const email = response?.data?.email; // Assuming the backend returns email
+          const username = response?.data?.username; // Assuming the backend returns username
+      
+          // Update the auth state with username, email, roles, and access token
+          setAuth({ username, email, roles, accessToken });
+          setUser('');
+          setPwd('');
+          setSuccess(true);
+          setUserLoggedIn(true); // Set user as logged in
+      
+          // Redirect to home or another page after successful login
+          // navigate("/");
+      
+        } catch (err) {
+          if (!err?.response) {
+            setErrMsg('No Server Response');
+          } else if (err.response?.status === 400) {
+            setErrMsg('Missing Username or Password');
+          } else if (err.response?.status === 401) {
+            setErrMsg('Unauthorized');
+          } else {
+            setErrMsg('Login Failed');
+          }
+          errRef.current.focus();
         }
-    }
+      }
 
     return (
         <>

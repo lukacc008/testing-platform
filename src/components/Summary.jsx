@@ -23,14 +23,24 @@ export default function Summary({ userAnswers }) {
   // Function to send test results to the server
   const sendTestResults = async () => {
     try {
-      const response = await axios.post("/test-results", {
-        username: auth.username, // Use context's username
-        email: auth.email,       // Use context's email
-        correctAnswersShare,
-        skippedAnswersShare,
-        wrongAnswersShare,
-      });
-
+      const response = await axios.post(
+        "/test-results",
+        {
+          username: auth.username, // Correctly reference username and email from auth
+          email: auth.email,
+          correctAnswersShare,
+          skippedAnswersShare,
+          wrongAnswersShare,
+          createdAt: auth.createdAt
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${auth.accessToken}` // Include the access token
+          }
+        }
+      );
+  
       console.log("Test results saved successfully:", response.data.message);
     } catch (error) {
       console.error(
