@@ -10,7 +10,7 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Quiz />} />
+          <Route path="*" element={<Quiz />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           {/* other routes */}
