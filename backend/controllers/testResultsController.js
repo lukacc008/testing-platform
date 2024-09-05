@@ -22,5 +22,15 @@ const saveTestResult = async (req, res) => {
   }
 };
 
+// Fetch all test results function
+const getTestResults = async (req, res) => {
+  try {
+    const testResults = await TestResult.find({});
+    res.status(200).json(testResults);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching test results', error });
+  }
+};
+
 // Export the function at the bottom
-module.exports = { saveTestResult };
+module.exports = { saveTestResult, getTestResults };
