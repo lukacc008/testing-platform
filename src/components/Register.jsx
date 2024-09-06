@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   faCheck,
   faTimes,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress from MUI
 import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -35,6 +36,7 @@ const Register = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false); // State to track loading
 
   useEffect(() => {
     userRef.current.focus();
@@ -42,22 +44,16 @@ const Register = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
     setValidName(result);
   }, [user]);
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
     setValidEmail(result);
   }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -69,7 +65,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if button was enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
     const v3 = EMAIL_REGEX.test(email);
@@ -77,6 +72,9 @@ const Register = () => {
       setErrMsg("Invalid entry");
       return;
     }
+
+    setLoading(true); // Start loading when submitting
+
     try {
       const response = await axios.post(
         REGISTER_URL,
@@ -87,10 +85,7 @@ const Register = () => {
         }
       );
       console.log("Axios response:", response.data);
-      console.log(response.accessToken);
-      console.log("Full response object:", JSON.stringify(response.data));
       setSuccess(true);
-      // clear input fields
     } catch (err) {
       if (!err.response) {
         setErrMsg("No Server Response");
@@ -100,6 +95,8 @@ const Register = () => {
         setErrMsg("Registration Failed");
       }
       errRef.current.focus();
+    } finally {
+      setLoading(false); // Stop loading after response
     }
   };
 
@@ -155,6 +152,7 @@ const Register = () => {
               <br />
               Letters, numbers, underscores, hyphens allowed
             </p>
+
             <label htmlFor="email">
               Email:
               <FontAwesomeIcon
@@ -262,9 +260,11 @@ const Register = () => {
             </p>
 
             <button
-              disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}
+              disabled={
+                !validName || !validPwd || !validMatch || !validEmail || loading
+              }
             >
-              Sign Up
+              {loading ? <CircularProgress size={50} /> : "Sign Up"}
             </button>
           </form>
           <p>
