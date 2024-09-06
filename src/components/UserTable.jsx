@@ -77,9 +77,9 @@ const UserTable = () => {
               <td>{user._id}</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
-              <td>{user.correctAnswersShare}</td>
-              <td>{user.skippedAnswersShare}</td>
-              <td>{user.wrongAnswersShare}</td>
+              <td>{`${user.correctAnswersShare} %`}</td>
+              <td>{`${user.skippedAnswersShare} %`}</td>
+              <td>{`${user.wrongAnswersShare} %`}</td>
               <td>{new Date(user.createdAt).toLocaleString()}</td>
             </tr>
           ))}
