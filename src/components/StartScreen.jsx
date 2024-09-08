@@ -13,6 +13,7 @@ function StartScreen({ onStart }) {
           <li>Any unanswered questions will be marked as skipped.</li>
           <li>If the window loses focus, the answer will be marked as wrong and the new question will start immediately.</li>
           <li>If the timer expires, the answer will be marked as wrong.</li>
+          <li>Once you finish the test, results will be automatically sent to us.</li>
         </ul>
         <button onClick={onStart}>I AM READY</button>
       </div>
