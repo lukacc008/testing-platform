@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import UserTable from "./components/UserTable";
 import Unauthorized from "./components/Unauthorized";
 import RequireAuth from "./components/RequireAuth";
+import ResultsTable from "./components/ResultsTable"
 
 const ROLES = {
   User: 2001,
@@ -23,8 +24,11 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="results" element={<UserTable />} />
+          </Route> */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route path="results" element={<ResultsTable />} />
           </Route>
           {/* other routes */}
         </Routes>
