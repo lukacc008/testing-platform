@@ -46,19 +46,19 @@ const headCells = [
     id: "correctAnswersShare",
     numeric: true,
     disablePadding: false,
-    label: "Correct Answers (%)",
+    label: "Correct Answers",
   },
   {
     id: "skippedAnswersShare",
     numeric: true,
     disablePadding: false,
-    label: "Skipped Answers (%)",
+    label: "Skipped Answers",
   },
   {
     id: "wrongAnswersShare",
     numeric: true,
     disablePadding: false,
-    label: "Wrong Answers (%)",
+    label: "Wrong Answers",
   },
   { id: "createdAt", numeric: false, disablePadding: false, label: "Created At" },
 ];
