@@ -9,16 +9,16 @@ const useRefreshToken = () => {
             withCredentials: true
         });
         setAuth(prev => {
-            console.log(JSON.stringify(prev));
-            console.log(response.data.accessToken);
             return {
                 ...prev,
-                roles: response.data.roles,
-                accessToken: response.data.accessToken
-            }
+                roles: response.data.roles,  // ensure roles is updated
+                accessToken: response.data.accessToken,  // new access token
+                username: response.data.username,  // ensure username is maintained
+                email: response.data.email  // maintain email state
+            };
         });
         return response.data.accessToken;
-    }
+    };
     return refresh;
 };
 
