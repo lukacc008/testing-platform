@@ -458,15 +458,26 @@ nav ul li {
   margin-left: 20px;
 }
 
-nav ul li a {
+nav ul li a,
+nav ul li button {
   text-decoration: none;
   color: #fff;
   font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  line-height: 1.2; /* Ensure consistent line-height */
+  vertical-align: middle; /* Ensure vertical alignment with text */
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li button:hover {
   color: #007BFF;
 }
+
 
 .instructions {
   font-size: 0.75rem;

@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(auth));
+    setUserLoggedIn(!!auth.accessToken); // Set userLoggedIn based on accessToken
   }, [auth]);
 
   useEffect(() => {
@@ -22,11 +23,10 @@ export const AuthProvider = ({ children }) => {
   }, [persist]);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, userLoggedIn, setUserLoggedIn}}>
+    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, userLoggedIn, setUserLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 
 export default AuthContext;
