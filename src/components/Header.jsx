@@ -17,6 +17,9 @@ export default function Header() {
         <ul>
           <li>{isAdmin && <Link to="/results">Results</Link>}</li>
           <li>
+            <Link to="/home">Home</Link>
+          </li>
+          <li>
             <Link to="/login">Login</Link>
           </li>
           <li>

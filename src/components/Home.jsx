@@ -6,6 +6,9 @@ import Card from './Card';
 import reactImg from '../assets/reactJS.png';
 import JsImg from '../assets/JavaScript.jpeg';
 import HtmlCss from '../assets/HtmlCss.png';
+import questions from '../questions.js';
+
+const reactNumQuestions = questions.length;
 
 // Sample test data (title, image, description)
 const testData = [
@@ -13,6 +16,7 @@ const testData = [
     title: "React Test",
     image: reactImg,
     description: "Take a 5-10 minutes React JS test.",
+    numQuestions: reactNumQuestions
   },
   {
     title: "JavaScript Test",
@@ -43,7 +47,8 @@ export default function Home() {
             <Card 
               title={test.title} 
               image={test.image} 
-              description={test.description} 
+              description={test.description}
+              numQuestions={test.numQuestions}
             />
           </Grid>
         ))}
