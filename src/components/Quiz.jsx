@@ -1,77 +1,57 @@
-import { useState, useCallback, useContext, useEffect } from "react";
-import { Route, Routes, Link } from "react-router-dom";
-import Home from "./Home.jsx";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
-// import Card from "./Card.jsx";
 import AuthContext from "../context/AuthProvider";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
-  const [userReady, setUserReady] = useState(false);
-
-  // Get userLoggedIn state from AuthContext
-  const { userLoggedIn } = useContext(AuthContext);
+  const [userReady, setUserReady] = useState(false);  // For quiz readiness state
+  const { userLoggedIn } = useContext(AuthContext); // Fetch user login state from context
 
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(
-    selectedAnswer
-  ) {
-    setUserAnswers((prevUserAnswers) => {
-      return [...prevUserAnswers, selectedAnswer];
-    });
-  },
-  []);
+  const handleSelectAnswer = useCallback((selectedAnswer) => {
+    setUserAnswers((prev) => [...prev, selectedAnswer]);
+  }, []);
 
-  function onStart() {
+  const onStart = () => {
+    console.log("Start button clicked, setting userReady to true...");
     setUserReady(true);
-  }
-
-  const handleSkipAnswer = useCallback(
-    () => handleSelectAnswer(null),
-    [handleSelectAnswer]
-  );
+  };
 
   useEffect(() => {
-    // Function to handle window blur event
-    function handleWindowBlur() {
-      // Mark the question as skipped if the window loses focus
-      handleSkipAnswer();
-    }
+    console.log("User ready:", userReady); // Log user readiness for debugging
+  }, [userReady]);
 
-    // Add event listener for the window blur event only if quiz is not complete
+  const handleSkipAnswer = useCallback(() => {
+    handleSelectAnswer(null);
+  }, [handleSelectAnswer]);
+
+  // Window blur event handler
+  useEffect(() => {
     if (!quizIsComplete) {
+      const handleWindowBlur = () => handleSkipAnswer();
       window.addEventListener("blur", handleWindowBlur);
+      return () => window.removeEventListener("blur", handleWindowBlur);
     }
+  }, [handleSkipAnswer, quizIsComplete]);
 
-    // Cleanup the event listener when the component is unmounted or when question changes
-    return () => {
-      window.removeEventListener("blur", handleWindowBlur);
-    };
-  }, [handleSkipAnswer, quizIsComplete]); // Dependency on handleSkipAnswer and quizIsComplete
-
-  if (quizIsComplete) {
-    return <Summary userAnswers={userAnswers} />;
-  }
-
-  if (userLoggedIn) {
-    return <Home />;
-  }
+  if (quizIsComplete) return <Summary userAnswers={userAnswers} />;
 
   if (!userLoggedIn) {
     return (
       <div>
-        <h2>Please log in or if you do not have an account register</h2>
-        {/* <Card /> */}
+        <h2>Please log in or register to take the quiz</h2>
       </div>
     );
   }
 
-  if (!userReady && userLoggedIn) {
+  // Render the start screen if the user isn't ready
+  if (!userReady) {
+    console.log("Rendering StartScreen...");
     return <StartScreen onStart={onStart} />;
   }
 
@@ -80,23 +60,19 @@ export default function Quiz() {
 
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer
-          key={activeQuestionIndex}
-          timeout={10000}
-          onTimeout={handleSkipAnswer}
-        />
-        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(answer)}>
-                {answer}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <QuestionTimer
+        key={activeQuestionIndex}
+        timeout={10000}
+        onTimeout={handleSkipAnswer}
+      />
+      <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
+      <ul id="answers">
+        {shuffledAnswers.map((answer) => (
+          <li key={answer} className="answer">
+            <button onClick={() => handleSelectAnswer(answer)}>{answer}</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

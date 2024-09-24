@@ -5,6 +5,11 @@ import AuthContext from "../context/AuthProvider";
 function StartScreen({ onStart }) {
   const { userLoggedIn } = useContext(AuthContext);
 
+  const handleClick = () => {
+    console.log("I AM READY button clicked");
+    onStart();  // Call the passed function
+  };
+
   return (
     <>
       <div id="start">
@@ -15,7 +20,7 @@ function StartScreen({ onStart }) {
           <li>If the timer expires, the answer will be marked as wrong.</li>
           <li>Once you finish the test, results will be automatically sent to us.</li>
         </ul>
-        <button onClick={onStart}>I AM READY</button>
+        <button onClick={handleClick}>I AM READY</button>
       </div>
       {!userLoggedIn && <Register />}
     </>

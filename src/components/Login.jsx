@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 const LOGIN_URL = "/auth";
 
@@ -55,8 +57,7 @@ const Login = () => {
       setSuccess(true);
       setUserLoggedIn(true);
 
-      // Redirect to home or another page after successful login
-      // navigate("/");
+      // Optionally auto-dismiss the alert after 3 seconds and navigate
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -77,10 +78,15 @@ const Login = () => {
     <>
       {success ? (
         <section>
-          <h1>You are logged in!</h1>
-          <br />
+          <Alert
+            variant="filled"
+            icon={<CheckIcon fontSize="inherit" />}
+            severity="success"
+          >
+            Successful login!
+          </Alert>
           <p>
-            <Link to="/">Go to Home</Link>
+            <Link to="/home">Go to Home</Link>
           </p>
         </section>
       ) : (
@@ -114,8 +120,6 @@ const Login = () => {
               required
             />
             <button disabled={loading}>
-              {" "}
-              {/* Disable button when loading */}
               {loading ? <CircularProgress size={50} /> : "Sign In"}
             </button>
           </form>

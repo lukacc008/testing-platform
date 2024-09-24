@@ -9,6 +9,7 @@ import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import ResultsTable from "./components/ResultsTable";
 import Home from "./components/Home";
+import StartScreen from "./components/StartScreen";
 
 const ROLES = {
   User: 2001,
@@ -24,8 +25,10 @@ function App() {
       <main>
         <Routes>
           <Route element={<PersistLogin />}>
-            <Route path="*" element={<Quiz />} />
+            <Route path="quiz" element={<Quiz />} />
+            <Route path="test" element={<StartScreen />} />
             <Route path="home" element={<Home />} />
+            <Route path="quiz" element={<Quiz />} />
             <Route path="unauthorized" element={<Unauthorized />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
