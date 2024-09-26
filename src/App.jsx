@@ -25,10 +25,10 @@ function App() {
       <main>
         <Routes>
           <Route element={<PersistLogin />}>
-            <Route path="quiz" element={<Quiz />} />
-            <Route path="test" element={<StartScreen />} />
-            <Route path="home" element={<Home />} />
-            <Route path="quiz" element={<Quiz />} />
+            <Route path="test" element={<Quiz />} />
+            <Route path="instructions" element={<StartScreen />} />
+            <Route path="tests" element={<Home />} />
+            {/* <Route path="quiz" element={<Quiz />} /> */}
             <Route path="unauthorized" element={<Unauthorized />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />

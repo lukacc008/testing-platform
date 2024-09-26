@@ -6,9 +6,8 @@ import Summary from "./Summary.jsx";
 import AuthContext from "../context/AuthProvider";
 
 export default function Quiz() {
+  const { userReady, userLoggedIn, onStart } = useContext(AuthContext); // Use context for userReady and other states
   const [userAnswers, setUserAnswers] = useState([]);
-  const [userReady, setUserReady] = useState(false);  // For quiz readiness state
-  const { userLoggedIn } = useContext(AuthContext); // Fetch user login state from context
 
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
@@ -17,20 +16,10 @@ export default function Quiz() {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
   }, []);
 
-  const onStart = () => {
-    console.log("Start button clicked, setting userReady to true...");
-    setUserReady(true);
-  };
-
-  useEffect(() => {
-    console.log("User ready:", userReady); // Log user readiness for debugging
-  }, [userReady]);
-
   const handleSkipAnswer = useCallback(() => {
     handleSelectAnswer(null);
   }, [handleSelectAnswer]);
 
-  // Window blur event handler
   useEffect(() => {
     if (!quizIsComplete) {
       const handleWindowBlur = () => handleSkipAnswer();
@@ -38,6 +27,9 @@ export default function Quiz() {
       return () => window.removeEventListener("blur", handleWindowBlur);
     }
   }, [handleSkipAnswer, quizIsComplete]);
+
+  console.log("userReady:", userReady);  // <-- Add this to debug userReady
+  console.log("userLoggedIn:", userLoggedIn);  // <-- Debug userLoggedIn
 
   if (quizIsComplete) return <Summary userAnswers={userAnswers} />;
 
@@ -49,12 +41,13 @@ export default function Quiz() {
     );
   }
 
-  // Render the start screen if the user isn't ready
+  // Show StartScreen if user isn't ready yet
   if (!userReady) {
-    console.log("Rendering StartScreen...");
-    return <StartScreen onStart={onStart} />;
+    console.log("Rendering StartScreen...");  // <-- This logs if userReady is still false
+    return <StartScreen />;  // No need to pass props if StartScreen uses useContext directly
   }
 
+  // Quiz rendering logic
   const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
   shuffledAnswers.sort(() => Math.random() - 0.5);
 

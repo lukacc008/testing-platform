@@ -13,6 +13,13 @@ export const AuthProvider = ({ children }) => {
     return JSON.parse(localStorage.getItem("persist")) || false;
   });
 
+  const [userReady, setUserReady] = useState(false); // move userReady to context
+
+  const onStart = () => {
+    console.log("Start button clicked, setting userReady to true...");
+    setUserReady(true);
+  };
+
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(auth));
     setUserLoggedIn(!!auth.accessToken); // Set userLoggedIn based on accessToken
@@ -23,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, [persist]);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, userLoggedIn, setUserLoggedIn }}>
+    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, userLoggedIn, setUserLoggedIn, onStart, userReady }}>
       {children}
     </AuthContext.Provider>
   );

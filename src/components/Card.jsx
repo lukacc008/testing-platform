@@ -13,7 +13,7 @@ export default function TestCard({ title, image, description, numQuestions }) {
 
   // Function to handle navigation to the Quiz component
   const handleCardClick = () => {
-    navigate("/test");
+    navigate("/instructions");
   };
 
   return (
