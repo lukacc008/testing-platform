@@ -86,7 +86,7 @@ const Login = () => {
             Successful login!
           </Alert>
           <p>
-            <Link to="/tests">Go to Home</Link>
+            <Link to="/tests">Go to Tests</Link>
           </p>
         </section>
       ) : (

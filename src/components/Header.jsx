@@ -12,16 +12,19 @@ export default function Header() {
     if (isConfirmed) {
       try {
         // Call the backend to handle logout using GET instead of POST
-        const response = await fetch('/logout', { method: 'GET', credentials: 'include' });
-  
+        const response = await fetch("/logout", {
+          method: "GET",
+          credentials: "include",
+        });
+
         if (response.ok) {
           // Clear local state and redirect
-          setAuth({ username: '', email: '', roles: [], accessToken: '' });
+          setAuth({ username: "", email: "", roles: [], accessToken: "" });
           setUserLoggedIn(false);
           navigate("/login"); // Redirect to login page after logout
         }
       } catch (err) {
-        console.error('Logout failed', err);
+        console.error("Logout failed", err);
       }
     }
   };
@@ -33,6 +36,11 @@ export default function Header() {
           {isAdmin && (
             <li>
               <Link to="/results">Results</Link>
+            </li>
+          )}
+          {userLoggedIn && (
+            <li>
+              <Link to="/tests">Tests</Link>
             </li>
           )}
           <li>

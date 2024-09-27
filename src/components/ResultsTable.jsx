@@ -12,14 +12,10 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-// import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import FilterListIcon from '@mui/icons-material/FilterList';
-// import { alpha } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
 
 function descendingComparator(a, b, orderBy) {
@@ -39,7 +35,7 @@ function getComparator(order, orderBy) {
 }
 
 const headCells = [
-  { id: "_id", numeric: false, disablePadding: false, label: "ID" },
+  // { id: "_id", numeric: false, disablePadding: false, label: "ID" }, Removed ID from the table because it is not needed.
   { id: "username", numeric: false, disablePadding: false, label: "Username" },
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
   {
@@ -98,19 +94,13 @@ function EnhancedTableHead(props) {
   );
 }
 
-// EnhancedTableHead.propTypes = {
-//   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-//   orderBy: PropTypes.string.isRequired,
-//   onRequestSort: PropTypes.func.isRequired,
-// };
-
 function UserTable() {
   const [users, setUsers] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("_id");
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [dense, setDense] = useState(true);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -188,9 +178,9 @@ function UserTable() {
 
                 return (
                   <TableRow hover tabIndex={-1} key={row._id}>
-                    <TableCell component="th" id={labelId} scope="row">
+                    {/* <TableCell component="th" id={labelId} scope="row"> //Removed the ID cell.
                       {row._id}
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>{row.username}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell align="right">
