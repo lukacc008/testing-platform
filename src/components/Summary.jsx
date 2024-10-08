@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import quizCompleteImg from "../assets/quiz-complete.png";
-import QUESTIONS from "../questions.js";
+import { reactQuestions } from "../questions.js"; // Import the correct named export
 import axios from "../api/axios.js";
 import AuthContext from "../context/AuthProvider"; // Import AuthContext
 
@@ -9,7 +9,7 @@ export default function Summary({ userAnswers }) {
 
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
   const correctAnswers = userAnswers.filter(
-    (answer, index) => answer === QUESTIONS[index].answers[0]
+    (answer, index) => answer === reactQuestions[index].answers[0] // Use the correct question array
   );
 
   const skippedAnswersShare = Math.round(
@@ -35,12 +35,12 @@ export default function Summary({ userAnswers }) {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${auth.accessToken}` // Include the access token
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.accessToken}` // Include the access token
           }
         }
       );
-  
+
       console.log("Test results saved successfully:", response.data.message);
     } catch (error) {
       console.error(
@@ -75,12 +75,12 @@ export default function Summary({ userAnswers }) {
       </div>
       <ol>
         {userAnswers.map((answer, index) => {
-          //used for conditional rendering of correct skipped and wrong answers
+          // used for conditional rendering of correct skipped and wrong answers
           let cssClass = "user-answer";
 
           if (answer === null) {
             cssClass += " skipped";
-          } else if (answer === QUESTIONS[index].answers[0]) {
+          } else if (answer === reactQuestions[index].answers[0]) {
             cssClass += " correct";
           } else {
             cssClass += " wrong";
@@ -89,7 +89,7 @@ export default function Summary({ userAnswers }) {
           return (
             <li key={index}>
               <h3>{index + 1}</h3>
-              <p className="question">{QUESTIONS[index].text}</p>
+              <p className="question">{reactQuestions[index].text}</p>
               <p className={cssClass}>{answer ?? "Skipped"}</p>
             </li>
           );

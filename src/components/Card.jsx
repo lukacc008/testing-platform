@@ -8,24 +8,30 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase"; // Import ButtonBase for clickable card
 
-export default function TestCard({ title, image, description, numQuestions }) {
+export default function TestCard({ title, image, description, numQuestions, route }) {
   const navigate = useNavigate();
 
   // Function to handle navigation to the Quiz component
   const handleCardClick = () => {
-    navigate("/instructions");
+    navigate(route); // Navigate to the correct route when card is clicked
   };
 
   return (
     // Wrap the card with ButtonBase to make the entire card clickable
-    <ButtonBase 
-      onClick={handleCardClick} 
+    <ButtonBase
+      onClick={handleCardClick}
       sx={{ display: "block", textAlign: "inherit", width: "100%" }}
     >
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
           title={
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <Typography variant="h6">{title}</Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {numQuestions && `${numQuestions} questions`}

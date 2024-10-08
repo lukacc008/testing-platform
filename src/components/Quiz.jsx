@@ -1,16 +1,16 @@
+// Quiz.js
 import React, { useState, useCallback, useContext, useEffect } from "react";
-import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
 import AuthContext from "../context/AuthProvider";
 
-export default function Quiz() {
-  const { userReady, userLoggedIn, onStart } = useContext(AuthContext); // Use context for userReady and other states
+export default function Quiz({ questions }) {
+  const { userReady, userLoggedIn, onStart } = useContext(AuthContext);
   const [userAnswers, setUserAnswers] = useState([]);
 
   const activeQuestionIndex = userAnswers.length;
-  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
+  const quizIsComplete = activeQuestionIndex === questions.length;
 
   const handleSelectAnswer = useCallback((selectedAnswer) => {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
@@ -28,9 +28,6 @@ export default function Quiz() {
     }
   }, [handleSkipAnswer, quizIsComplete]);
 
-  console.log("userReady:", userReady);  // <-- Add this to debug userReady
-  console.log("userLoggedIn:", userLoggedIn);  // <-- Debug userLoggedIn
-
   if (quizIsComplete) return <Summary userAnswers={userAnswers} />;
 
   if (!userLoggedIn) {
@@ -41,14 +38,11 @@ export default function Quiz() {
     );
   }
 
-  // Show StartScreen if user isn't ready yet
   if (!userReady) {
-    console.log("Rendering StartScreen...");  // <-- This logs if userReady is still false
-    return <StartScreen />;  // No need to pass props if StartScreen uses useContext directly
+    return <StartScreen />;
   }
 
-  // Quiz rendering logic
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
+  const shuffledAnswers = [...questions[activeQuestionIndex].answers];
   shuffledAnswers.sort(() => Math.random() - 0.5);
 
   return (
@@ -58,7 +52,7 @@ export default function Quiz() {
         timeout={10000}
         onTimeout={handleSkipAnswer}
       />
-      <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
+      <h2>{questions[activeQuestionIndex].text}</h2>
       <ul id="answers">
         {shuffledAnswers.map((answer) => (
           <li key={answer} className="answer">

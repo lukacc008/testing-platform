@@ -1,4 +1,4 @@
-export default [
+export const reactQuestions = [
     {
       id: 'q1',
       text: 'Which of the following definitions best describes React.js?',
@@ -69,4 +69,32 @@ export default [
         'Using an if-else statement.',
       ],
     },
+  ];
+
+  export const javascriptQuestions = [
+    {
+      id: 'js1',
+      text: 'What is the output of "typeof NaN"?',
+      answers: [
+        'Number',
+        'Undefined',
+        'Object',
+        'String',
+      ],
+    },
+    // Add more JavaScript questions
+  ];
+  
+  export const htmlCssQuestions = [
+    {
+      id: 'html1',
+      text: 'What does HTML stand for?',
+      answers: [
+        'HyperText Markup Language',
+        'Hyperlink Text Markup Language',
+        'Home Tool Markup Language',
+        'None of the above',
+      ],
+    },
+    // Add more HTML & CSS questions
   ];

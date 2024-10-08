@@ -11,6 +11,12 @@ import ResultsTable from "./components/ResultsTable";
 import Home from "./components/Home";
 import StartScreen from "./components/StartScreen";
 
+import {
+  reactQuestions,
+  javascriptQuestions,
+  htmlCssQuestions,
+} from "./questions.js";
+
 const ROLES = {
   User: 2001,
   Editor: 1984,
@@ -26,15 +32,23 @@ function App() {
         <Routes>
           <Route element={<PersistLogin />}>
             <Route path="test" element={<Quiz />} />
+            <Route
+              path="/test/react"
+              element={<Quiz questions={reactQuestions} />} // React quiz
+            />
+            <Route
+              path="/test/javascript"
+              element={<Quiz questions={javascriptQuestions} />} // JavaScript quiz
+            />
+            <Route
+              path="/test/html-css"
+              element={<Quiz questions={htmlCssQuestions} />} // HTML & CSS quiz
+            />
             <Route path="instructions" element={<StartScreen />} />
             <Route path="tests" element={<Home />} />
-            {/* <Route path="quiz" element={<Quiz />} /> */}
             <Route path="unauthorized" element={<Unauthorized />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
-            {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-            <Route path="results" element={<UserTable />} />
-          </Route> */}
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path="results" element={<ResultsTable />} />
             </Route>
