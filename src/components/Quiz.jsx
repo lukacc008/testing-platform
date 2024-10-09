@@ -5,6 +5,12 @@ import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
 import AuthContext from "../context/AuthProvider";
 
+import {
+  reactQuestions,
+  javascriptQuestions,
+  htmlCssQuestions,
+} from "../questions.js";
+
 export default function Quiz({ questions }) {
   const { userReady, userLoggedIn, onStart } = useContext(AuthContext);
   const [userAnswers, setUserAnswers] = useState([]);

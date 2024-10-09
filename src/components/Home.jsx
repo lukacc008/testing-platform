@@ -29,6 +29,7 @@ const testData = [
     description: "Take a 5-10 minutes React JS test.",
     route: "/test/react",
     numQuestions: reactNumQuestions,
+    questions: reactQuestions,
   },
   {
     title: "JavaScript Test",
@@ -36,6 +37,7 @@ const testData = [
     description: "Take a quick JavaScript assessment.",
     route: "/test/javascript",
     numQuestions: jsNumQuestions,
+    questions: javascriptQuestions,
   },
   {
     title: "HTML & CSS Test",
@@ -43,6 +45,7 @@ const testData = [
     description: "Test your HTML and CSS skills.",
     route: "/test/html-css",
     numQuestions: htmlCssNumQuestions,
+    questions: htmlCssQuestions
   },
 ];
 
