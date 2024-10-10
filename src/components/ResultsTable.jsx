@@ -56,7 +56,12 @@ const headCells = [
     disablePadding: false,
     label: "Wrong Answers",
   },
-  { id: "createdAt", numeric: false, disablePadding: false, label: "Created At" },
+  {
+    id: "createdAt",
+    numeric: false,
+    disablePadding: false,
+    label: "Created At",
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -136,10 +141,9 @@ function UserTable() {
   // Sorting and pagination
   const sortedRows = React.useMemo(
     () =>
-      [...users].sort(getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
+      [...users]
+        .sort(getComparator(order, orderBy))
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [users, order, orderBy, page, rowsPerPage]
   );
 
@@ -156,9 +160,7 @@ function UserTable() {
             User Data Table
           </Typography>
           <Tooltip title="Filter list">
-            <IconButton>
-              {/* <FilterListIcon /> */}
-            </IconButton>
+            <IconButton>{/* <FilterListIcon /> */}</IconButton>
           </Tooltip>
         </Toolbar>
         <TableContainer>

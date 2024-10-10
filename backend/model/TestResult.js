@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const testResultSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -9,6 +9,6 @@ const testResultSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const TestResult = mongoose.model('TestResult', testResultSchema);
+const TestResult = mongoose.model("TestResult", testResultSchema);
 
 module.exports = TestResult;

@@ -1,9 +1,15 @@
 // controllers/testResultsController.js
-const TestResult = require('../model/TestResult');
+const TestResult = require("../model/TestResult");
 
 // Define the function as a const
 const saveTestResult = async (req, res) => {
-  const { username, email, correctAnswersShare, skippedAnswersShare, wrongAnswersShare } = req.body;
+  const {
+    username,
+    email,
+    correctAnswersShare,
+    skippedAnswersShare,
+    wrongAnswersShare,
+  } = req.body;
 
   try {
     const newTestResult = new TestResult({
@@ -11,14 +17,14 @@ const saveTestResult = async (req, res) => {
       email,
       correctAnswersShare,
       skippedAnswersShare,
-      wrongAnswersShare
+      wrongAnswersShare,
     });
 
     await newTestResult.save();
 
-    res.status(200).json({ message: 'Test results saved successfully!' });
+    res.status(200).json({ message: "Test results saved successfully!" });
   } catch (error) {
-    res.status(500).json({ message: 'Error saving test results', error });
+    res.status(500).json({ message: "Error saving test results", error });
   }
 };
 
@@ -28,7 +34,7 @@ const getTestResults = async (req, res) => {
     const testResults = await TestResult.find({});
     res.status(200).json(testResults);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching test results', error });
+    res.status(500).json({ message: "Error fetching test results", error });
   }
 };
 

@@ -45,7 +45,7 @@ const testData = [
     description: "Test your HTML and CSS skills.",
     route: "/test/html-css",
     numQuestions: htmlCssNumQuestions,
-    questions: htmlCssQuestions
+    questions: htmlCssQuestions,
   },
 ];
 

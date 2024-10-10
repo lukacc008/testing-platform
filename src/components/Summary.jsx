@@ -31,13 +31,13 @@ export default function Summary({ userAnswers }) {
           correctAnswersShare,
           skippedAnswersShare,
           wrongAnswersShare,
-          createdAt: auth.createdAt
+          createdAt: auth.createdAt,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.accessToken}` // Include the access token
-          }
+            Authorization: `Bearer ${auth.accessToken}`, // Include the access token
+          },
         }
       );
 

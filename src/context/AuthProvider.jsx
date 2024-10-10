@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext({});
 
@@ -6,7 +6,9 @@ export const AuthProvider = ({ children }) => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [auth, setAuth] = useState(() => {
     const savedAuth = localStorage.getItem("auth");
-    return savedAuth ? JSON.parse(savedAuth) : { username: '', email: '', roles: [], accessToken: '' };
+    return savedAuth
+      ? JSON.parse(savedAuth)
+      : { username: "", email: "", roles: [], accessToken: "" };
   });
 
   const [persist, setPersist] = useState(() => {
@@ -30,7 +32,18 @@ export const AuthProvider = ({ children }) => {
   }, [persist]);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, userLoggedIn, setUserLoggedIn, onStart, userReady }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        setAuth,
+        persist,
+        setPersist,
+        userLoggedIn,
+        setUserLoggedIn,
+        onStart,
+        userReady,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
