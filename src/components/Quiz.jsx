@@ -1,19 +1,16 @@
-// Quiz.js
-import React, { useState, useCallback, useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useState, useContext, useEffect, useCallback } from "react";
+import AuthContext from "../context/AuthProvider";
 import QuestionTimer from "./QuestionTimer.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Summary from "./Summary.jsx";
-import AuthContext from "../context/AuthProvider";
 
-import {
-  reactQuestions,
-  javascriptQuestions,
-  htmlCssQuestions,
-} from "../questions.js";
-
-export default function Quiz({ questions }) {
-  const { userReady, userLoggedIn, onStart } = useContext(AuthContext);
+export default function Quiz() {
+  const location = useLocation();
+  // const { questions } = location.state; // Access questions passed via state
+  const { userLoggedIn, userReady, selectedTest } = useContext(AuthContext);
   const [userAnswers, setUserAnswers] = useState([]);
+  const { questions } = selectedTest;
 
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === questions.length;
@@ -26,6 +23,7 @@ export default function Quiz({ questions }) {
     handleSelectAnswer(null);
   }, [handleSelectAnswer]);
 
+
   useEffect(() => {
     if (!quizIsComplete) {
       const handleWindowBlur = () => handleSkipAnswer();
@@ -34,30 +32,27 @@ export default function Quiz({ questions }) {
     }
   }, [handleSkipAnswer, quizIsComplete]);
 
+  if (!selectedTest) {
+    return <div>No test selected</div>
+  }
+
+
+
   if (quizIsComplete) return <Summary userAnswers={userAnswers} />;
 
   if (!userLoggedIn) {
-    return (
-      <div>
-        <h2>Please log in or register to take the quiz</h2>
-      </div>
-    );
+    return <div><h2>Please log in or register to take the quiz</h2></div>;
   }
 
   if (!userReady) {
     return <StartScreen />;
   }
 
-  const shuffledAnswers = [...questions[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+  const shuffledAnswers = [...questions[activeQuestionIndex].answers].sort(() => Math.random() - 0.5);
 
   return (
     <div id="quiz">
-      <QuestionTimer
-        key={activeQuestionIndex}
-        timeout={10000}
-        onTimeout={handleSkipAnswer}
-      />
+      <QuestionTimer key={activeQuestionIndex} timeout={10000} onTimeout={handleSkipAnswer} />
       <h2>{questions[activeQuestionIndex].text}</h2>
       <ul id="answers">
         {shuffledAnswers.map((answer) => (

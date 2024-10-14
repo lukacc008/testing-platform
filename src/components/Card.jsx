@@ -6,32 +6,25 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ButtonBase from "@mui/material/ButtonBase"; // Import ButtonBase for clickable card
+import ButtonBase from "@mui/material/ButtonBase";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 
-export default function TestCard({ title, image, description, numQuestions, route }) {
+export default function TestCard({ title, image, description, numQuestions, route, questions }) {
   const navigate = useNavigate();
+  const { setSelectedTest } = useContext(AuthContext); // Access setSelectedTest from context
 
-  // Function to handle navigation to the Quiz component
   const handleCardClick = () => {
-    navigate(route); // Navigate to the correct route when card is clicked
+    setSelectedTest({ title, questions }); // Set the selected test in context
+    navigate(route);
   };
 
   return (
-    // Wrap the card with ButtonBase to make the entire card clickable
-    <ButtonBase
-      onClick={handleCardClick}
-      sx={{ display: "block", textAlign: "inherit", width: "100%" }}
-    >
+    <ButtonBase onClick={handleCardClick} sx={{ display: "block", textAlign: "inherit", width: "100%" }}>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
           title={
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Typography variant="h6">{title}</Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {numQuestions && `${numQuestions} questions`}
@@ -49,3 +42,4 @@ export default function TestCard({ title, image, description, numQuestions, rout
     </ButtonBase>
   );
 }
+

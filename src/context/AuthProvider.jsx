@@ -10,12 +10,12 @@ export const AuthProvider = ({ children }) => {
       ? JSON.parse(savedAuth)
       : { username: "", email: "", roles: [], accessToken: "" };
   });
-
   const [persist, setPersist] = useState(() => {
     return JSON.parse(localStorage.getItem("persist")) || false;
   });
 
-  const [userReady, setUserReady] = useState(false); // move userReady to context
+  const [userReady, setUserReady] = useState(false); 
+  const [selectedTest, setSelectedTest] = useState(null); // Store the selected test
 
   const onStart = () => {
     console.log("Start button clicked, setting userReady to true...");
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(auth));
-    setUserLoggedIn(!!auth.accessToken); // Set userLoggedIn based on accessToken
+    setUserLoggedIn(!!auth.accessToken); 
   }, [auth]);
 
   useEffect(() => {
@@ -42,6 +42,8 @@ export const AuthProvider = ({ children }) => {
         setUserLoggedIn,
         onStart,
         userReady,
+        selectedTest,
+        setSelectedTest,
       }}
     >
       {children}

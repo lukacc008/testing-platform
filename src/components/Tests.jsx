@@ -63,7 +63,8 @@ export default function Tests() {
               image={test.image}
               description={test.description}
               numQuestions={test.numQuestions}
-              route={test.route} // Pass route as a prop to TestCard
+              route={test.route}
+              questions={test.questions} // Pass route as a prop to TestCard
             />
           </Grid>
         ))}
