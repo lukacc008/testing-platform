@@ -1,15 +1,21 @@
 import React, { useEffect, useContext } from "react";
 import quizCompleteImg from "../assets/quiz-complete.png";
-import { reactQuestions } from "../questions.js"; // Import the correct named export
 import axios from "../api/axios.js";
 import AuthContext from "../context/AuthProvider"; // Import AuthContext
 
 export default function Summary({ userAnswers }) {
-  const { auth } = useContext(AuthContext); // Access auth from context
+  const { auth, selectedTest } = useContext(AuthContext); // Access selectedTest from context
+
+  // If no test is selected, return null (or handle it as needed)
+  if (!selectedTest) {
+    return <div>No test selected.</div>;
+  }
+
+  const { questions } = selectedTest; // Dynamically get the correct set of questions
 
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
   const correctAnswers = userAnswers.filter(
-    (answer, index) => answer === reactQuestions[index].answers[0] // Use the correct question array
+    (answer, index) => answer === questions[index].answers[0] // Use the correct questions array
   );
 
   const skippedAnswersShare = Math.round(
@@ -57,8 +63,7 @@ export default function Summary({ userAnswers }) {
 
   return (
     <div id="summary">
-      <img src={quizCompleteImg} alt="Trophy icon" />
-      <h2>Quiz Completed!</h2>
+      <h2>Test Finished!</h2>
       <div id="summary-stats">
         <p>
           <span className="number">{skippedAnswersShare}%</span>
@@ -80,7 +85,7 @@ export default function Summary({ userAnswers }) {
 
           if (answer === null) {
             cssClass += " skipped";
-          } else if (answer === reactQuestions[index].answers[0]) {
+          } else if (answer === questions[index].answers[0]) {
             cssClass += " correct";
           } else {
             cssClass += " wrong";
@@ -89,7 +94,7 @@ export default function Summary({ userAnswers }) {
           return (
             <li key={index}>
               <h3>{index + 1}</h3>
-              <p className="question">{reactQuestions[index].text}</p>
+              <p className="question">{questions[index].text}</p>
               <p className={cssClass}>{answer ?? "Skipped"}</p>
             </li>
           );
