@@ -23,5 +23,24 @@ export default function QuestionTimer({ timeout, onTimeout }) {
     };
   }, []);
 
-  return <progress id="question-time" max={timeout} value={remainingTime} />;
+  // Calculate the remaining minutes and seconds
+  const minutes = Math.floor(remainingTime / 60000); // Convert milliseconds to minutes
+  const seconds = Math.floor((remainingTime % 60000) / 1000); // Convert milliseconds to seconds
+
+  return (
+    <div id="timer-container" style={{ display: "flex", alignItems: "center" }}>
+      {/* Progress bar */}
+      <progress
+        id="question-time"
+        max={timeout}
+        value={remainingTime}
+        style={{ flexGrow: 1 }}
+      />
+
+      {/* Time display */}
+      <span style={{ marginLeft: "10px", fontSize: "16px" }}>
+        {minutes}:{seconds < 10 ? `0${seconds}` : seconds} {/* Add leading zero for seconds */}
+      </span>
+    </div>
+  );
 }

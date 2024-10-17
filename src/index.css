@@ -400,10 +400,14 @@ section {
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 1rem;
+  justify-content: center; /* Center vertically */
+  align-items: center;     /* Center horizontally */
+  padding: 6px;
   background-color: rgba(0,0,0,0.4);
+  margin: auto;            /* Ensure it's centered horizontally within the page */
+  height: 100vh;           /* Set the section to take up the full viewport height */
 }
+
 
 form {
   display: flex;
