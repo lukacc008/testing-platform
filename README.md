@@ -27,3 +27,13 @@ Backend: Node.js with Express for API handling, integrated with MongoDB for data
 Database: MongoDB for storing user data, test results, and managing user roles.
 Authentication: Custom user authentication with role-based access control for Admins and Users.
 This app was built with scalability and security in mind, ensuring a robust experience for both job applicants and administrators, while also maintaining data integrity and a smooth user experience.
+
+![project 1](https://github.com/user-attachments/assets/a6819617-9c01-4e92-99d0-d878f88ba941)
+![project 2](https://github.com/user-attachments/assets/d4185514-318d-451c-957e-e666f3a28b6c)
+![project 3](https://github.com/user-attachments/assets/7a215a63-cb86-471f-884d-79f9245fb486)
+![project 4](https://github.com/user-attachments/assets/4f420ff0-acc1-46cd-b15b-4e2217596ca6)
+![project 5](https://github.com/user-attachments/assets/3585c69c-8440-4fd8-b448-41461de3ffc2)
+![project 6](https://github.com/user-attachments/assets/8c9f5962-10d2-43dd-8061-96c5e7bdcaaa)
+![project 7](https://github.com/user-attachments/assets/142cb7c1-a96c-4ff9-9795-5a4a092e4358)
+![project 8](https://github.com/user-attachments/assets/f90b831c-9bb7-41fd-ae37-86e9f89dc364)
+![project 9](https://github.com/user-attachments/assets/c68ce2db-5be3-410e-a2be-1c2ea1f3f984)
