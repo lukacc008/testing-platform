@@ -8,6 +8,7 @@ User Authentication & Role Management:
 
 New users must register and log in, with all data stored in a MongoDB database.
 The app supports role-based access control, with users assigned either "Admin" or "User" roles. Admins can view and manage test results, while regular users can only take tests.
+
 Dynamic Test Interface:
 
 Users can select from a variety of available tests, each displayed on cards with details like the number of questions and test description.
