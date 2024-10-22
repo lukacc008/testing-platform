@@ -10,15 +10,18 @@ New users must register and log in, with all data stored in a MongoDB database.
 The app supports role-based access control, with users assigned either "Admin" or "User" roles. Admins can view and manage test results, while regular users can only take tests.
 
 Dynamic Test Interface:
+
 Users can select from a variety of available tests, each displayed on cards with details like the number of questions and test description.
 Each test presents questions with four possible answers (one correct) and includes a timer to ensure time management during testing.
 An instruction page precedes each test, warning users that if they switch tabs or minimize the window, the current question will be marked as incorrect, with an alert displayed via the Material-UI (MUI) library.
 
 Test Result Tracking:
+
 Upon completing a test, the results are logged into the MongoDB database, including the user’s name, email, correct/wrong/skipped answers, and timestamp.
 These results can be accessed and managed by Admin users via a separate "Results" section in the app’s navigation.
 
 Admin Panel for Result Management:
+
 Admins have access to a results management interface, which includes features like table sorting, pagination, and customizable row display options to effectively review test outcomes for all users.
 Technology Stack:
 
