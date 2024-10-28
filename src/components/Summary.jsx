@@ -11,7 +11,7 @@ export default function Summary({ userAnswers }) {
     return <div>No test selected.</div>;
   }
 
-  const { questions } = selectedTest; // Dynamically get the correct set of questions
+  const { questions, testId } = selectedTest; // Dynamically get the correct set of questions and testId
 
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
   const correctAnswers = userAnswers.filter(
@@ -32,17 +32,17 @@ export default function Summary({ userAnswers }) {
       const response = await axios.post(
         "/test-results",
         {
-          username: auth.username, // Correctly reference username and email from auth
+          username: auth.username,
           email: auth.email,
           correctAnswersShare,
           skippedAnswersShare,
           wrongAnswersShare,
-          createdAt: auth.createdAt,
+          testId, // Send testId to the server
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.accessToken}`, // Include the access token
+            Authorization: `Bearer ${auth.accessToken}`,
           },
         }
       );
@@ -80,7 +80,6 @@ export default function Summary({ userAnswers }) {
       </div>
       <ol>
         {userAnswers.map((answer, index) => {
-          // used for conditional rendering of correct skipped and wrong answers
           let cssClass = "user-answer";
 
           if (answer === null) {

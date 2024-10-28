@@ -1,30 +1,24 @@
-//////////////////////// RENAME IT LATER TO TESTS NOT HOME ////////////////////////
-
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import axios from "../api/axios";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TestCard from "./Card.jsx";
+import AuthContext from "../context/AuthProvider";
 import reactImg from "../assets/reactJS.png";
 import JsImg from "../assets/JavaScript.jpeg";
 import HtmlCss from "../assets/HtmlCss.png";
-// Import the named exports from questions.js
-import {
-  reactQuestions,
-  javascriptQuestions,
-  htmlCssQuestions,
-} from "../questions.js";
+import { reactQuestions, javascriptQuestions, htmlCssQuestions } from "../questions.js";
 
-// Get the number of questions from each test
 const reactNumQuestions = reactQuestions.length;
 const jsNumQuestions = javascriptQuestions.length;
 const htmlCssNumQuestions = htmlCssQuestions.length;
 
-// Sample test data (title, image, description)
 const testData = [
   {
     title: "React Test",
+    testId: "react",
     image: reactImg,
     description: "Take a 5-10 minutes React JS test.",
     route: "/test/react",
@@ -33,6 +27,7 @@ const testData = [
   },
   {
     title: "JavaScript Test",
+    testId: "javascript",
     image: JsImg,
     description: "Take a quick JavaScript assessment.",
     route: "/test/javascript",
@@ -41,6 +36,7 @@ const testData = [
   },
   {
     title: "HTML & CSS Test",
+    testId: "html-css",
     image: HtmlCss,
     description: "Test your HTML and CSS skills.",
     route: "/test/html-css",
@@ -50,6 +46,28 @@ const testData = [
 ];
 
 export default function Tests() {
+  const { auth } = useContext(AuthContext);
+  const [completedTests, setCompletedTests] = useState(new Set());
+
+  useEffect(() => {
+    const fetchCompletedTests = async () => {
+      console.log("Auth token:", auth?.accessToken);
+      try {
+        // Match the frontend request URL to the protected endpoint on the backend
+        const response = await axios.get(`/test-results/completed-tests/${auth.username}`, {
+          headers: {
+            Authorization: `Bearer ${auth?.accessToken}`, // Use the token stored in auth
+          },
+        });
+        setCompletedTests(new Set(response.data));
+      } catch (error) {
+        console.error("Error fetching completed tests:", error);
+      }
+    };
+
+    if (auth.username) fetchCompletedTests();
+  }, [auth.username, auth.accessToken]);
+
   return (
     <Container sx={{ mt: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
@@ -64,7 +82,9 @@ export default function Tests() {
               description={test.description}
               numQuestions={test.numQuestions}
               route={test.route}
-              questions={test.questions} // Pass route as a prop to TestCard
+              questions={test.questions}
+              testId={test.testId}
+              isCompleted={completedTests.has(test.testId)}
             />
           </Grid>
         ))}

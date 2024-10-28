@@ -6,6 +6,7 @@ const testResultSchema = new mongoose.Schema({
   correctAnswersShare: { type: Number, required: true },
   skippedAnswersShare: { type: Number, required: true },
   wrongAnswersShare: { type: Number, required: true },
+  testId: { type: String, required: true }, // Add testId to link the result to a test
   createdAt: { type: Date, default: Date.now },
 });
 

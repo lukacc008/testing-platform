@@ -10,17 +10,19 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
-export default function TestCard({ title, image, description, numQuestions, route, questions }) {
+export default function TestCard({ title, image, description, numQuestions, route, questions, testId, isCompleted }) {
   const navigate = useNavigate();
-  const { setSelectedTest } = useContext(AuthContext); // Access setSelectedTest from context
+  const { setSelectedTest } = useContext(AuthContext);
 
   const handleCardClick = () => {
-    setSelectedTest({ title, questions }); // Set the selected test in context
-    navigate(route);
+    if (!isCompleted) {
+      setSelectedTest({ title, questions, testId });
+      navigate(route);
+    }
   };
 
   return (
-    <ButtonBase onClick={handleCardClick} sx={{ display: "block", textAlign: "inherit", width: "100%" }}>
+    <ButtonBase onClick={handleCardClick} sx={{ display: "block", textAlign: "inherit", width: "100%" }} disabled={isCompleted}>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
           title={
@@ -42,4 +44,3 @@ export default function TestCard({ title, image, description, numQuestions, rout
     </ButtonBase>
   );
 }
-
