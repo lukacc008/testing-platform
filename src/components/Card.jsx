@@ -23,7 +23,7 @@ export default function TestCard({ title, image, description, numQuestions, rout
 
   return (
     <ButtonBase onClick={handleCardClick} sx={{ display: "block", textAlign: "inherit", width: "100%" }} disabled={isCompleted}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, position: "relative" }}>
         <CardHeader
           title={
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -40,6 +40,29 @@ export default function TestCard({ title, image, description, numQuestions, rout
             {description}
           </Typography>
         </CardContent>
+
+        {/* Overlay for completed tests */}
+        {isCompleted && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              bgcolor: "rgba(0, 0, 0, 0.9)", // 80% transparent black
+              color: "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              p: 2,
+              zIndex: 1,
+            }}
+          >
+            <Typography variant="h6">Results for {testId} submitted</Typography>
+          </Box>
+        )}
       </Card>
     </ButtonBase>
   );
