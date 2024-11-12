@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const [userReady, setUserReady] = useState(false); 
-  const [selectedTest, setSelectedTest] = useState(null); // Store the selected test
+  const [selectedTest, setSelectedTest] = useState(null);
 
   const onStart = () => {
     console.log("Start button clicked, setting userReady to true...");

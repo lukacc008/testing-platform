@@ -1,10 +1,9 @@
 import React, { useEffect, useContext } from "react";
-import quizCompleteImg from "../assets/quiz-complete.png";
 import axios from "../api/axios.js";
-import AuthContext from "../context/AuthProvider"; // Import AuthContext
+import AuthContext from "../context/AuthProvider";
 
 export default function Summary({ userAnswers }) {
-  const { auth, selectedTest } = useContext(AuthContext); // Access selectedTest from context
+  const { auth, selectedTest } = useContext(AuthContext);
 
   // If no test is selected, return null (or handle it as needed)
   if (!selectedTest) {
