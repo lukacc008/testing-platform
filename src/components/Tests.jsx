@@ -46,17 +46,22 @@ const testData = [
 ];
 
 export default function Tests() {
-  const { auth } = useContext(AuthContext);
+  const { auth, refreshAccessToken } = useContext(AuthContext);
   const [completedTests, setCompletedTests] = useState(new Set());
 
   useEffect(() => {
     const fetchCompletedTests = async () => {
-      console.log("Auth token:", auth?.accessToken);
       try {
-        // Match the frontend request URL to the protected endpoint on the backend
+        let accessToken = auth.accessToken;
+        
+        // If accessToken is missing, try refreshing it
+        if (!accessToken) {
+          accessToken = await refreshAccessToken();
+        }
+        
         const response = await axios.get(`/test-results/completed-tests/${auth.username}`, {
           headers: {
-            Authorization: `Bearer ${auth?.accessToken}`, // Use the token stored in auth
+            Authorization: `Bearer ${accessToken}`,
           },
         });
         setCompletedTests(new Set(response.data));
@@ -66,7 +71,7 @@ export default function Tests() {
     };
 
     if (auth.username) fetchCompletedTests();
-  }, [auth.username, auth.accessToken]);
+  }, [auth.username, auth.accessToken, refreshAccessToken]);
 
   return (
     <Container sx={{ mt: 4 }}>

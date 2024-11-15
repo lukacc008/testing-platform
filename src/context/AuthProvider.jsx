@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import axios from "../api/axios";
 
 const AuthContext = createContext({});
 
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [persist, setPersist] = useState(() => {
     return JSON.parse(localStorage.getItem("persist")) || false;
   });
-
+  
   const [userReady, setUserReady] = useState(false); 
   const [selectedTest, setSelectedTest] = useState(null);
 
@@ -22,9 +23,24 @@ export const AuthProvider = ({ children }) => {
     setUserReady(true);
   };
 
+  // Function to refresh the access token
+  const refreshAccessToken = async () => {
+    try {
+      const response = await axios.get("/refresh", { withCredentials: true });
+      setAuth((prev) => ({
+        ...prev,
+        accessToken: response.data.accessToken,
+      }));
+      return response.data.accessToken;
+    } catch (error) {
+      console.error("Failed to refresh access token:", error);
+      setUserLoggedIn(false); // Log user out if refresh fails
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("auth", JSON.stringify(auth));
-    setUserLoggedIn(!!auth.accessToken); 
+    setUserLoggedIn(!!auth.accessToken);
   }, [auth]);
 
   useEffect(() => {
@@ -44,6 +60,7 @@ export const AuthProvider = ({ children }) => {
         userReady,
         selectedTest,
         setSelectedTest,
+        refreshAccessToken, // Provide refreshAccessToken to the context
       }}
     >
       {children}

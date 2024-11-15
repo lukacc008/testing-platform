@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const testResultsController = require('../controllers/testResultsController');
-const verifyJWT = require('../middleware/verifyJWT'); // Import verifyJWT
+const verifyJWT = require('../middleware/verifyJWT');
 
 // Routes that do not require authentication
 router.post('/', testResultsController.saveTestResult);
