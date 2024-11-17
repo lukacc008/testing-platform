@@ -48,7 +48,9 @@ app.use('/logout', require('./routes/logout'));
 app.use('/test-results', require('./routes/testResults'));
 
 // apply JWT verification middleware specifically to protected routes
-app.use('/test-results/completed-tests', verifyJWT, require('./routes/testResults')); // Only protect completed-tests route
+// app.use('/test-results/completed-tests', verifyJWT, require('./routes/testResults')); // Only protect completed-tests route
+app.use('/test-results/completed-tests', require('./routes/testResults'));
+
 
 // Define routes that need JWT verification after this line
 app.use('/employees', verifyJWT, require('./routes/api/employees'));

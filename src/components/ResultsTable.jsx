@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import CircularProgress from "@mui/material/CircularProgress";
 import { visuallyHidden } from "@mui/utils";
 
 function descendingComparator(a, b, orderBy) {
@@ -38,6 +39,12 @@ const headCells = [
   // { id: "_id", numeric: false, disablePadding: false, label: "ID" }, Removed ID from the table because it is not needed.
   { id: "username", numeric: false, disablePadding: false, label: "Username" },
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
+  {
+    id: "testId",
+    numeric: false,
+    disablePadding: false,
+    label: "Test ID",
+  },
   {
     id: "correctAnswersShare",
     numeric: true,
@@ -100,6 +107,7 @@ function EnhancedTableHead(props) {
 }
 
 function UserTable() {
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("_id");
@@ -114,6 +122,8 @@ function UserTable() {
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -148,77 +158,80 @@ function UserTable() {
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <Toolbar>
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
+    <Box sx={{ width: "100%", textAlign: "center", mt: 3 }}>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <Toolbar>
+            <Typography
+              sx={{ flex: "1 1 100%" }}
+              variant="h6"
+              id="tableTitle"
+              component="div"
+            >
+              User Data Table
+            </Typography>
+            <Tooltip title="Filter list">
+              <IconButton>{/* <FilterListIcon /> */}</IconButton>
+            </Tooltip>
+          </Toolbar>
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+              />
+              <TableBody>
+                {sortedRows.map((row, index) => {
+                  const labelId = `enhanced-table-checkbox-${index}`;
+  
+                  return (
+                    <TableRow hover tabIndex={-1} key={row._id}>
+                      <TableCell>{row.username}</TableCell>
+                      <TableCell>{row.email}</TableCell>
+                      <TableCell>{row.testId}</TableCell>
+                      <TableCell align="right">
+                        {`${row.correctAnswersShare} %`}
+                      </TableCell>
+                      <TableCell align="right">
+                        {`${row.skippedAnswersShare} %`}
+                      </TableCell>
+                      <TableCell align="right">
+                        {`${row.wrongAnswersShare} %`}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(row.createdAt).toLocaleString()}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
             component="div"
-          >
-            User Data Table
-          </Typography>
-          <Tooltip title="Filter list">
-            <IconButton>{/* <FilterListIcon /> */}</IconButton>
-          </Tooltip>
-        </Toolbar>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-            />
-            <TableBody>
-              {sortedRows.map((row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-
-                return (
-                  <TableRow hover tabIndex={-1} key={row._id}>
-                    {/* <TableCell component="th" id={labelId} scope="row"> //Removed the ID cell.
-                      {row._id}
-                    </TableCell> */}
-                    <TableCell>{row.username}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell align="right">
-                      {`${row.correctAnswersShare} %`}
-                    </TableCell>
-                    <TableCell align="right">
-                      {`${row.skippedAnswersShare} %`}
-                    </TableCell>
-                    <TableCell align="right">
-                      {`${row.wrongAnswersShare} %`}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(row.createdAt).toLocaleString()}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+            count={users.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
     </Box>
   );
+  
 }
 
 export default UserTable;

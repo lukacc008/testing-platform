@@ -8,6 +8,6 @@ router.post('/', testResultsController.saveTestResult);
 router.get('/', testResultsController.getTestResults);
 
 // Routes that require authentication
-router.get('/completed-tests/:username', verifyJWT, testResultsController.getCompletedTestIds);
+router.get('/completed-tests/:username', testResultsController.getCompletedTestIds);
 
 module.exports = router;
