@@ -68,7 +68,7 @@ export default function Header() {
           {!userLoggedIn ? (
             <>
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login">Sign in</Link>
               </li>
               <li>
                 <Link to="/register">Register</Link>
