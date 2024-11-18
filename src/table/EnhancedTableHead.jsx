@@ -2,6 +2,8 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import TableSortLabel from "@mui/material/TableSortLabel";
+import Box from "@mui/material/Box"
+import { visuallyHidden } from "@mui/utils";
 
 const headCells = [
     { id: "username", numeric: false, disablePadding: false, label: "Username" },
