@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import Register from "./Register";
@@ -6,13 +6,11 @@ import Register from "./Register";
 export default function StartScreen() {
   const { userLoggedIn, onStart } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation(); // To access the questions passed via state
-  // const { questions } = location.state; // Extract questions from state
 
   const handleClick = () => {
     console.log("I AM READY button clicked");
     onStart(); // Call the function from context
-    navigate("/test"); // Pass questions to Quiz via state
+    navigate("/test");
   };
 
   return (

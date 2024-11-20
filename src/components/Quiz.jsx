@@ -12,21 +12,24 @@ export default function Quiz() {
   const { userLoggedIn, userReady, selectedTest } = useContext(AuthContext);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const { questions } = selectedTest;
+  const { questions } = selectedTest || {};
 
   const activeQuestionIndex = userAnswers.length;
-  const quizIsComplete = activeQuestionIndex === questions.length;
+  const quizIsComplete = activeQuestionIndex === questions?.length;
 
   const handleSelectAnswer = useCallback((selectedAnswer) => {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
   }, []);
 
   const handleSkipAnswer = useCallback(() => {
-    handleSelectAnswer(null);
-  }, [handleSelectAnswer]);
+    if (userReady) {
+      // Only skip answers if the quiz has started
+      setUserAnswers((prev) => [...prev, null]);
+    }
+  }, [userReady]);
 
   useEffect(() => {
-    if (!quizIsComplete) {
+    if (userReady && !quizIsComplete) {
       const handleWindowBlur = () => {
         handleSkipAnswer();
       };
@@ -46,7 +49,7 @@ export default function Quiz() {
         window.removeEventListener("focus", handleWindowFocus);
       };
     }
-  }, [handleSkipAnswer, quizIsComplete]);
+  }, [userReady, handleSkipAnswer, quizIsComplete]);
 
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {

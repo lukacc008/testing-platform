@@ -77,7 +77,21 @@ export const javascriptQuestions = [
     text: 'What is the output of "typeof NaN"?',
     answers: ["Number", "Undefined", "Object", "String"],
   },
-  // Add more JavaScript questions
+  {
+    id: "js2",
+    text: "Which of the following is NOT a valid JavaScript data type?",
+    answers: ["Boolean", "String", "Integer", "Symbol"],
+  },
+  {
+    id: "js3",
+    text: "What will the following code output? `console.log(0.1 + 0.2 === 0.3);`",
+    answers: ["false", "true", "undefined", "TypeError"],
+  },
+  {
+    id: "js4",
+    text: "Which of the following methods can be used to combine two arrays?",
+    answers: ["concat()", "push()", "slice()", "splice()"],
+  },
 ];
 
 export const htmlCssQuestions = [
@@ -91,5 +105,29 @@ export const htmlCssQuestions = [
       "None of the above",
     ],
   },
-  // Add more HTML & CSS questions
+  {
+    id: "css1",
+    text: "Which property is used to change the background color in CSS?",
+    answers: ["background-color", "color", "background", "bgcolor"],
+  },
+  {
+    id: "css2",
+    text: "What does the z-index property in CSS control?",
+    answers: [
+      "The stack order of elements",
+      "The zoom level of an element",
+      "The size of an element",
+      "The position of an element in the DOM",
+    ],
+  },
+  {
+    id: "css3",
+    text: "How do you make text bold in CSS?",
+    answers: [
+      "font-weight: bold;",
+      "text-style: bold;",
+      "font-style: bold;",
+      "text-weight: bold;",
+    ],
+  },
 ];

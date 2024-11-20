@@ -81,7 +81,7 @@ header h1 {
 }
 
 
-#last-try {
+/* #last-try {
   max-width: 40rem;
   margin: 2rem auto;
   font-size: 0.8rem;
@@ -104,7 +104,7 @@ header h1 {
   gap: 1rem;
   font-size: 1.25rem;
   color: #a690c5;
-}
+} */
 
 #quiz {
   max-width: 50rem;
@@ -186,7 +186,6 @@ header h1 {
   padding: 1rem 2rem;
   border: none;
   border-radius: 36px;
-  /* background: linear-gradient(180deg, #81f1fb 0%, #73d2f8 100%); */
   background: #6cb7f5;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -194,26 +193,21 @@ header h1 {
 
 .answer button:hover,
 .answer button:focus {
-  /* background: linear-gradient(180deg, #bf48f6 0%, #9b50f2 100%); */
   background: #9d5af5;
   color: white;
-  /* box-shadow: 0 0 4px 2px rgba(255, 200, 60, 0.8); */
 }
 
 .answer button.selected {
-  /* background: linear-gradient(180deg, #fbda81 0%, #f8b173 100%); */
   background: #f5a76c;
   color: #2c203d;
 }
 
 .answer button.correct {
-  /* background: linear-gradient(180deg, #a1fa61 0%, #52d482 100%); */
   background: #5af59d;
   color: #2c203d;
 }
 
 .answer button.wrong {
-  /* background: linear-gradient(180deg, #f96fb1 0%, #f52b8c 100%); */
   background: #f55a98;
   color: #2c203d;
 }
@@ -266,7 +260,6 @@ header h1 {
   padding: 1rem 2rem;
   border: none;
   border-radius: 36px;
-  /* background: linear-gradient(180deg, #81f1fb 0%, #73d2f8 100%); */
   background: #6cb7f5;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -400,12 +393,12 @@ section {
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center;     /* Center horizontally */
+  justify-content: center;
+  align-items: center;
   padding: 6px;
   background-color: rgba(0,0,0,0.4);
-  margin: auto;            /* Ensure it's centered horizontally within the page */
-  height: 100vh;           /* Set the section to take up the full viewport height */
+  margin: auto;
+  height: 100vh;
 }
 
 
@@ -413,7 +406,6 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
- /* flex-grow: 1; */
   padding-bottom: 1rem;
 }
 
@@ -441,7 +433,7 @@ button {
 padding: 0.5rem;
 }
 
-/* Navigation styles for Login, Register, and Results links */
+/* Navigation styles for Sign in, Register, Tests and Results links */
 nav {
   display: flex;
   justify-content: flex-end;
