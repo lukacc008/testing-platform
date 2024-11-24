@@ -1,17 +1,26 @@
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import Register from "./Register";
 
 export default function StartScreen() {
-  const { userLoggedIn, onStart } = useContext(AuthContext);
+  const { userReady, setUserReady, selectedTest, onStart, userLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Reset userReady state when the component mounts
+    setUserReady(false);
+  }, [setUserReady, selectedTest]); // Reset when selectedTest changes
 
   const handleClick = () => {
     console.log("I AM READY button clicked");
-    onStart(); // Call the function from context
-    navigate("/test");
+    onStart(); // Sets userReady to true
+    navigate("/test"); // Navigate to the test page
   };
+
+  if (!selectedTest) {
+    return <p>No test selected. Please go back and select a test.</p>;
+  }
 
   return (
     <>

@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [persist, setPersist] = useState(() => {
     return JSON.parse(localStorage.getItem("persist")) || false;
   });
-  
+
   const [userReady, setUserReady] = useState(false); 
   const [selectedTest, setSelectedTest] = useState(null);
 
@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
     setUserReady(true);
   };
 
-  // Function to refresh the access token
   const refreshAccessToken = async () => {
     try {
       const response = await axios.get("/refresh", { withCredentials: true });
@@ -34,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       return response.data.accessToken;
     } catch (error) {
       console.error("Failed to refresh access token:", error);
-      setUserLoggedIn(false); // Log user out if refresh fails
+      setUserLoggedIn(false); 
     }
   };
 
@@ -47,6 +46,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("persist", JSON.stringify(persist));
   }, [persist]);
 
+  // Reset userReady when selectedTest changes
+  useEffect(() => {
+    if (selectedTest) {
+      setUserReady(false);
+    }
+  }, [selectedTest]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -58,9 +64,10 @@ export const AuthProvider = ({ children }) => {
         setUserLoggedIn,
         onStart,
         userReady,
+        setUserReady,
         selectedTest,
         setSelectedTest,
-        refreshAccessToken, // Provide refreshAccessToken to the context
+        refreshAccessToken,
       }}
     >
       {children}
