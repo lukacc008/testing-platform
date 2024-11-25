@@ -50,7 +50,7 @@ export default function TestCard({ title, image, description, numQuestions, rout
               left: 0,
               width: "100%",
               height: "100%",
-              bgcolor: "rgba(0, 0, 0, 0.9)", // 80% transparent black
+              bgcolor: "rgba(0, 0, 0, 0.9)", // 90% transparent black
               color: "#ffffff",
               display: "flex",
               alignItems: "center",
