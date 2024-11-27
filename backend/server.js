@@ -53,7 +53,7 @@ app.use('/test-results/completed-tests', require('./routes/testResults'));
 
 
 // Define routes that need JWT verification after this line
-app.use('/employees', verifyJWT, require('./routes/api/employees'));
+// app.use('/employees', verifyJWT, require('./routes/api/employees'));
 
 
 app.all('*', (req, res) => {

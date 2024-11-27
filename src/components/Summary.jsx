@@ -1,16 +1,12 @@
 import React, { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "../api/axios.js";
 import AuthContext from "../context/AuthProvider";
 
 export default function Summary({ userAnswers }) {
   const { auth, selectedTest } = useContext(AuthContext);
-
-  // If no test is selected, return null (or handle it as needed)
-  if (!selectedTest) {
-    return <div>No test selected.</div>;
-  }
-
   const { questions, testId } = selectedTest; // Dynamically get the correct set of questions and testId
+  const navigate = useNavigate(); // Initialize navigate
 
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
   const correctAnswers = userAnswers.filter(
@@ -25,7 +21,6 @@ export default function Summary({ userAnswers }) {
   );
   const wrongAnswersShare = 100 - skippedAnswersShare - correctAnswersShare;
 
-  // Function to send test results to the server
   const sendTestResults = async () => {
     try {
       const response = await axios.post(
@@ -36,7 +31,7 @@ export default function Summary({ userAnswers }) {
           correctAnswersShare,
           skippedAnswersShare,
           wrongAnswersShare,
-          testId, // Send testId to the server
+          testId,
         },
         {
           headers: {
@@ -55,13 +50,32 @@ export default function Summary({ userAnswers }) {
     }
   };
 
-  // Send the test results when the component mounts
   useEffect(() => {
     sendTestResults();
   }, []);
 
+  const handleGoToTests = () => {
+    navigate("/tests"); // Redirect to /tests when the button is clicked
+  };
+
   return (
     <div id="summary">
+      <button
+        onClick={handleGoToTests}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          padding: "10px 15px",
+          backgroundColor: "#007bff",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Back to Tests
+      </button>
       <h2>Test Finished!</h2>
       <div id="summary-stats">
         <p>

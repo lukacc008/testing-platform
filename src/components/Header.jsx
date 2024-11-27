@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 export default function Header() {
-  const { auth, setAuth, userLoggedIn, setUserLoggedIn } = useAuth(); // Get the auth state
+  const { auth, setAuth, userLoggedIn, setUserLoggedIn, userReady } = useAuth(); // Add userReady to destructured context
   const isAdmin = auth?.roles?.includes(5150); // Check if the user is an Admin
   const navigate = useNavigate();
 
@@ -50,37 +50,40 @@ export default function Header() {
 
   return (
     <header>
-      <nav>
-        <ul>
-          {isAdmin && (
-            <li>
-              <Link to="/results">Results</Link>
-            </li>
-          )}
-          {userLoggedIn && (
-            <li>
-              <Link to="/tests">Tests</Link>
-            </li>
-          )}
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
-          {!userLoggedIn ? (
-            <>
+      {/* Conditionally render nav links based on userReady */}
+      {!userReady && (
+        <nav>
+          <ul>
+            {isAdmin && (
               <li>
-                <Link to="/login">Sign in</Link>
+                <Link to="/results">Results</Link>
               </li>
+            )}
+            {userLoggedIn && (
               <li>
-                <Link to="/register">Register</Link>
+                <Link to="/tests">Tests</Link>
               </li>
-            </>
-          ) : (
+            )}
             <li>
-              <button onClick={handleOpenConfirm}>Logout</button>
+              <Link to="/home">Home</Link>
             </li>
-          )}
-        </ul>
-      </nav>
+            {!userLoggedIn ? (
+              <>
+                <li>
+                  <Link to="/login">Sign in</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <button onClick={handleOpenConfirm}>Logout</button>
+              </li>
+            )}
+          </ul>
+        </nav>
+      )}
 
       {/* MUI Dialog for Logout Confirmation */}
       <Dialog
