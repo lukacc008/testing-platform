@@ -4,7 +4,7 @@ import axios from "../api/axios.js";
 import AuthContext from "../context/AuthProvider";
 
 export default function Summary({ userAnswers }) {
-  const { auth, selectedTest } = useContext(AuthContext);
+  const { auth, selectedTest, setUserReady } = useContext(AuthContext);
   const { questions, testId } = selectedTest; // Dynamically get the correct set of questions and testId
   const navigate = useNavigate(); // Initialize navigate
 
@@ -55,17 +55,64 @@ export default function Summary({ userAnswers }) {
   }, []);
 
   const handleGoToTests = () => {
-    navigate("/tests"); // Redirect to /tests when the button is clicked
+    navigate("/tests");
+    setUserReady(false);
   };
 
   return (
-    <div id="summary">
+    <div
+      id="summary"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+        padding: "20px",
+      }}
+    >
+      <div>
+        <h2>Test Finished!</h2>
+        <div id="summary-stats">
+          <p>
+            <span className="number">{skippedAnswersShare}%</span>
+            <span className="skipped">skipped</span>
+          </p>
+          <p>
+            <span className="number">{correctAnswersShare}%</span>
+            <span className="skipped">answered correctly</span>
+          </p>
+          <p>
+            <span className="number">{wrongAnswersShare}%</span>
+            <span className="skipped">answered incorrectly</span>
+          </p>
+        </div>
+        <ol>
+          {userAnswers.map((answer, index) => {
+            let cssClass = "user-answer";
+
+            if (answer === null) {
+              cssClass += " skipped";
+            } else if (answer === questions[index].answers[0]) {
+              cssClass += " correct";
+            } else {
+              cssClass += " wrong";
+            }
+
+            return (
+              <li key={index}>
+                <h3>{index + 1}</h3>
+                <p className="question">{questions[index].text}</p>
+                <p className={cssClass}>{answer ?? "Skipped"}</p>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
       <button
         onClick={handleGoToTests}
         style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
+          marginTop: "20px",
+          alignSelf: "center",
           padding: "10px 15px",
           backgroundColor: "#007bff",
           color: "white",
@@ -76,42 +123,6 @@ export default function Summary({ userAnswers }) {
       >
         Back to Tests
       </button>
-      <h2>Test Finished!</h2>
-      <div id="summary-stats">
-        <p>
-          <span className="number">{skippedAnswersShare}%</span>
-          <span className="skipped">skipped</span>
-        </p>
-        <p>
-          <span className="number">{correctAnswersShare}%</span>
-          <span className="skipped">answered correctly</span>
-        </p>
-        <p>
-          <span className="number">{wrongAnswersShare}%</span>
-          <span className="skipped">answered incorrectly</span>
-        </p>
-      </div>
-      <ol>
-        {userAnswers.map((answer, index) => {
-          let cssClass = "user-answer";
-
-          if (answer === null) {
-            cssClass += " skipped";
-          } else if (answer === questions[index].answers[0]) {
-            cssClass += " correct";
-          } else {
-            cssClass += " wrong";
-          }
-
-          return (
-            <li key={index}>
-              <h3>{index + 1}</h3>
-              <p className="question">{questions[index].text}</p>
-              <p className={cssClass}>{answer ?? "Skipped"}</p>
-            </li>
-          );
-        })}
-      </ol>
     </div>
   );
 }
