@@ -39,6 +39,27 @@ const getTestResults = async (req, res) => {
   }
 };
 
+// Delete test result by ID
+const deleteTestResult = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: "Test result ID is required." });
+  }
+
+  try {
+    const result = await TestResult.findByIdAndDelete(id);
+
+    if (!result) {
+      return res.status(404).json({ message: "Test result not found." });
+    }
+
+    res.status(200).json({ message: "Test result deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting test result", error });
+  }
+};
+
 // New function to get all completed test IDs for a user
 const getCompletedTestIds = async (req, res) => {
   const { username } = req.params;
@@ -52,4 +73,4 @@ const getCompletedTestIds = async (req, res) => {
   }
 };
 
-module.exports = { saveTestResult, getTestResults, checkTestResultExists, getCompletedTestIds };
+module.exports = { saveTestResult, getTestResults, checkTestResultExists, getCompletedTestIds, deleteTestResult };

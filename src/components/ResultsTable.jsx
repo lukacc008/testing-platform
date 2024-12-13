@@ -71,6 +71,15 @@ function UserTable() {
     setDense(event.target.checked);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3500/test-results/${id}`);
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id)); // Update local state
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
   const sortedRows = React.useMemo(
     () =>
       [...users]
@@ -99,7 +108,11 @@ function UserTable() {
               />
               <TableBody>
                 {sortedRows.map((row) => (
-                  <TableRowComponent key={row._id} row={row} />
+                  <TableRowComponent
+                    key={row._id}
+                    row={row}
+                    onDelete={handleDelete} // Pass delete handler
+                  />
                 ))}
               </TableBody>
             </Table>
