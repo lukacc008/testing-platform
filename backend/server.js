@@ -11,12 +11,22 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
+
+// Use the PORT environment variable provided by Render or default to 3500
 const PORT = process.env.PORT || 3500;
 
 // Connect to MongoDB
 connectDB();
 
-// custom middleware logger
+// Log the MongoDB connection status
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+});
+
+// Custom middleware logger
 app.use(logger);
 
 // Handle options credentials check - before CORS!
@@ -26,50 +36,47 @@ app.use(credentials);
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-// built-in middleware to handle urlencoded form data
+// Built-in middleware to handle URL-encoded form data
 app.use(express.urlencoded({ extended: false }));
 
-// built-in middleware for json 
+// Built-in middleware for JSON
 app.use(express.json());
 
-//middleware for cookies
+// Middleware for cookies
 app.use(cookieParser());
 
-//serve static files
+// Serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
 
-// routes
+// Routes
 app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
-
 app.use('/test-results', require('./routes/testResults'));
 
-// apply JWT verification middleware specifically to protected routes
-// app.use('/test-results/completed-tests', verifyJWT, require('./routes/testResults')); // Only protect completed-tests route
+// Apply JWT verification middleware specifically to protected routes
 app.use('/test-results/completed-tests', require('./routes/testResults'));
 
-
-// Define routes that need JWT verification after this line
-// app.use('/employees', verifyJWT, require('./routes/api/employees'));
-
-
+// Catch-all route for undefined routes
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
         res.sendFile(path.join(__dirname, 'views', '404.html'));
     } else if (req.accepts('json')) {
-        res.json({ "error": "404 Not Found" });
+        res.json({ error: "404 Not Found" });
     } else {
         res.type('txt').send("404 Not Found");
     }
 });
 
+// Error handler middleware
 app.use(errorHandler);
-// open = connected
+
+// Start the server and bind to 0.0.0.0 for Render compatibility
 mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 });
