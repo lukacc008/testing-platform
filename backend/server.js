@@ -46,7 +46,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Serve static files
-app.use('/', express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', require('./routes/root'));
@@ -63,7 +63,8 @@ app.use('/test-results/completed-tests', require('./routes/testResults'));
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
-        res.sendFile(path.join(__dirname, 'views', '404.html'));
+        // Send a generic 404 message since no views directory exists
+        res.send('<h1>404 Not Found</h1>');
     } else if (req.accepts('json')) {
         res.json({ error: "404 Not Found" });
     } else {
