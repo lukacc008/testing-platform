@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../api/axios"; // Import the configured Axios instance
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -41,7 +41,7 @@ function UserTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3500/test-results");
+        const response = await axios.get("/test-results"); // Use the relative path
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -73,7 +73,7 @@ function UserTable() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3500/test-results/${id}`);
+      await axios.delete(`/test-results/${id}`); // Use the relative path
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id)); // Update local state
     } catch (error) {
       console.error("Error deleting user:", error);
