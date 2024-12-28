@@ -355,7 +355,6 @@ export const htmlCssQuestions = [
       "text-weight: bold;",
     ],
   },
-  [
     {
       id: "html2",
       text: "Which HTML element is used to define the largest heading?",
@@ -436,5 +435,4 @@ export const htmlCssQuestions = [
       text: "Which of the following pseudo-classes is used to style an element when it is hovered over?",
       answers: [":hover", ":focus", ":active", ":visited"],
     },
-  ],
 ];
