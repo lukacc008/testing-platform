@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios"; // Import the configured Axios instance
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -22,6 +22,9 @@ function UserTable() {
   const [dense, setDense] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  // Hardcoded BASE_URL TEMPORARY SOLUTION!!!
+  const BASE_URL = "https://testing-platform-xzzf.onrender.com";
+
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -41,7 +44,7 @@ function UserTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/test-results"); // Use the relative path
+        const response = await axios.get(`${BASE_URL}/test-results`);
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -73,7 +76,7 @@ function UserTable() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/test-results/${id}`); // Use the relative path
+      await axios.delete(`${BASE_URL}/test-results/${id}`);
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id)); // Update local state
     } catch (error) {
       console.error("Error deleting user:", error);
