@@ -13,6 +13,7 @@
 
 
   //TESTING FOR PRODUCTION
+  import axios from "axios";
   const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3500';
   console.log('Base URL:', BASE_URL); // Debugging
   export default axios.create({
