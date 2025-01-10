@@ -5,7 +5,7 @@ const Home = () => {
     <div>
       <h1>Welcome to the Candidate Testing Platform</h1>
       <p style={{ color: "red" }}>
-        NOTE: FIRST REQUESTS MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
+        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
         VERSION OF RENDER
       </p>
       <p>

@@ -102,6 +102,10 @@ const Register = () => {
 
   return (
     <>
+      <p style={{ color: "red", display: "flex", justifyContent: 'center' }}>
+        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
+        VERSION OF RENDER
+      </p>
       {success ? (
         <section>
           <h1>Success!</h1>

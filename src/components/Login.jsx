@@ -31,7 +31,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -41,26 +41,30 @@ const Login = () => {
           withCredentials: true,
         }
       );
-  
+
       console.log("Response data:", response?.data);
-  
+
       // Extract the required data from the response
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       const email = response?.data?.email;
       const username = response?.data?.username;
-  
+
       // Update the auth state with username, email, roles, and access token
       setAuth({ username, email, roles, accessToken });
-  
+
       // TEMPORARY LOG
-      console.log("Updated auth state after login:", { username, email, roles, accessToken });
-  
+      console.log("Updated auth state after login:", {
+        username,
+        email,
+        roles,
+        accessToken,
+      });
+
       setUser("");
       setPwd("");
       setSuccess(true);
       setUserLoggedIn(true);
-  
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -76,10 +80,13 @@ const Login = () => {
       setLoading(false); // Reset loading state to false when the request is done
     }
   };
-  
 
   return (
     <>
+      <p style={{ color: "red", display: "flex", justifyContent: "center" }}>
+        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
+        VERSION OF RENDER
+      </p>
       {success ? (
         <section>
           <Alert
