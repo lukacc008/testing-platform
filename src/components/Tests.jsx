@@ -8,7 +8,7 @@ import TestCard from "./Card.jsx";
 import AuthContext from "../context/AuthProvider";
 import reactImg from "../assets/reactJS.png";
 import JsImg from "../assets/JavaScript.jpeg";
-import HtmlCss from "../assets/HtmlCss.png";
+import HtmlCss from "../assets/HtmlCss.jpg"
 import { reactQuestions, javascriptQuestions, htmlCssQuestions } from "../questions.js";
 
 const reactNumQuestions = reactQuestions.length;
@@ -74,11 +74,11 @@ export default function Tests() {
   }, [auth.username, auth.accessToken, refreshAccessToken]);
 
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container sx={{ mt: 10 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Pick the test you want
       </Typography>
-      <Grid container spacing={8}>
+      <Grid container spacing={3}>
         {testData.map((test, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <TestCard

@@ -131,7 +131,7 @@ const Login = () => {
               required
             />
             <button disabled={loading}>
-              {loading ? <CircularProgress size={50} /> : "Sign In"}
+              {loading ? <CircularProgress size={50} sx={{ color: "white" }} /> : "Sign In"}
             </button>
           </form>
           <p>

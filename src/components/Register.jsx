@@ -102,9 +102,9 @@ const Register = () => {
 
   return (
     <>
-      <p style={{ color: "red", display: "flex", justifyContent: 'center' }}>
-        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
-        VERSION OF RENDER
+      <p style={{ color: "red", display: "flex", justifyContent: "center" }}>
+        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE VERSION
+        OF RENDER
       </p>
       {success ? (
         <section>
@@ -268,7 +268,11 @@ const Register = () => {
                 !validName || !validPwd || !validMatch || !validEmail || loading
               }
             >
-              {loading ? <CircularProgress size={50} /> : "Sign Up"}
+              {loading ? (
+                <CircularProgress size={50} sx={{ color: "white" }} />
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
           <p>

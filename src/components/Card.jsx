@@ -10,7 +10,16 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
-export default function TestCard({ title, image, description, numQuestions, route, questions, testId, isCompleted }) {
+export default function TestCard({
+  title,
+  image,
+  description,
+  numQuestions,
+  route,
+  questions,
+  testId,
+  isCompleted,
+}) {
   const navigate = useNavigate();
   const { setSelectedTest } = useContext(AuthContext);
 
@@ -22,11 +31,21 @@ export default function TestCard({ title, image, description, numQuestions, rout
   };
 
   return (
-    <ButtonBase onClick={handleCardClick} sx={{ display: "block", textAlign: "inherit", width: "100%" }} disabled={isCompleted}>
-      <Card sx={{ maxWidth: 345, position: "relative" }}>
+    <ButtonBase
+      onClick={handleCardClick}
+      sx={{ display: "block", textAlign: "inherit", width: "100%" }}
+      disabled={isCompleted}
+    >
+      <Card sx={{ position: "relative", margin: "auto" }}>
         <CardHeader
           title={
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <Typography variant="h6">{title}</Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {numQuestions && `${numQuestions} questions`}
@@ -34,14 +53,19 @@ export default function TestCard({ title, image, description, numQuestions, rout
             </Box>
           }
         />
-        <CardMedia component="img" height="194" image={image} alt={title} />
+        <CardMedia
+  component="img"
+  height="194"
+  image={image}
+  alt={title}
+  sx={{ objectFit: "cover" }}
+/>
         <CardContent>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
             {description}
           </Typography>
         </CardContent>
 
-        {/* Overlay for completed tests */}
         {isCompleted && (
           <Box
             sx={{
@@ -50,7 +74,7 @@ export default function TestCard({ title, image, description, numQuestions, rout
               left: 0,
               width: "100%",
               height: "100%",
-              bgcolor: "rgba(0, 0, 0, 0.9)", // 90% transparent black
+              bgcolor: "rgba(0, 0, 0, 0.9)",
               color: "#ffffff",
               display: "flex",
               alignItems: "center",
