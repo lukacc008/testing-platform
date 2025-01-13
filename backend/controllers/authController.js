@@ -30,14 +30,6 @@ const handleLogin = async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
     );
-    // CODE BEFORE USING MONGO DB *********************************
-    // const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username);
-    // const currentUser = { ...foundUser, refreshToken };
-    // usersDB.setUsers([...otherUsers, currentUser]);
-    // await fsPromises.writeFile(
-    //     path.join(__dirname, '..', 'model', 'users.json'),
-    //     JSON.stringify(usersDB.users)
-    // );
     foundUser.refreshToken = refreshToken;
     const result = await foundUser.save();
     console.log(result);
