@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header style={{ borderBottom: "3px solid white" }}>
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
         <nav>
