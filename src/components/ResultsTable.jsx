@@ -6,8 +6,6 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import LoadingIndicator from "../table/LoadingIndicator";
 import ToolbarComponent from "../table/Toolbar";
 import EnhancedTableHead from "../table/EnhancedTableHead";
@@ -19,7 +17,6 @@ function UserTable() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("_id");
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   // Hardcoded BASE_URL TEMPORARY SOLUTION!!!
@@ -70,10 +67,6 @@ function UserTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${BASE_URL}/test-results/${id}`);
@@ -102,7 +95,7 @@ function UserTable() {
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
+              size="small" // Always use dense padding
             >
               <EnhancedTableHead
                 order={order}
@@ -131,10 +124,6 @@ function UserTable() {
           />
         </Paper>
       )}
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
