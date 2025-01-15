@@ -49,7 +49,14 @@ export default function Header() {
   };
 
   return (
-    <header style={{ borderBottom: "3px solid white" }}>
+    <header
+      style={{
+        borderBottom: "2px solid white",
+        width: "calc(100% - 20px)",
+        margin: "10px",
+        boxSizing: "border-box",
+      }}
+    >
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
         <nav>
