@@ -2,7 +2,16 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "25vh", // Full viewport height
+        textAlign: "center", // Center text alignment
+      }}
+    >
       <h1>Welcome to the Candidate Testing Platform</h1>
       <p style={{ color: "red" }}>
         NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
