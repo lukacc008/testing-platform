@@ -144,18 +144,21 @@ const Register = () => {
               aria-describedby="uidnote"
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
+              style={{ width: "300px" }}
             />
-            <p
-              id="uidnote"
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Letters, numbers, underscores, hyphens allowed
-            </p>
+            <div style={{ position: "absolute" }}>
+              <p
+                id="uidnote"
+                className={
+                  userFocus && user && !validName ? "instructions" : "offscreen"
+                }
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+                4 to 24 characters.
+                <br />
+                Letters, numbers, underscores, hyphens allowed
+              </p>
+            </div>
 
             <label htmlFor="email">
               Email:
@@ -179,18 +182,19 @@ const Register = () => {
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
             />
-            <p
-              id="emailnote"
-              className={
-                emailFocus && email && !validEmail
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must be a valid email address.
-            </p>
-
+            <div style={{ position: "absolute" }}>
+              <p
+                id="emailnote"
+                className={
+                  emailFocus && email && !validEmail
+                    ? "instructions"
+                    : "offscreen"
+                }
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+                Must be a valid email address.
+              </p>
+            </div>
             <label htmlFor="password">
               Password:
               <FontAwesomeIcon
@@ -213,24 +217,25 @@ const Register = () => {
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
             />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </p>
-
+            <div style={{ position: "absolute" }}>
+              <p
+                id="pwdnote"
+                className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+                8 to 24 characters.
+                <br />
+                Must include uppercase and lowercase letters, a number and a
+                special character.
+                <br />
+                Allowed special characters:{" "}
+                <span aria-label="exclamation mark">!</span>{" "}
+                <span aria-label="at symbol">@</span>{" "}
+                <span aria-label="hashtag">#</span>{" "}
+                <span aria-label="dollar sign">$</span>{" "}
+                <span aria-label="percent">%</span>
+              </p>
+            </div>
             <label htmlFor="confirm_pwd">
               Confirm Password:
               <FontAwesomeIcon
