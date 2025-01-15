@@ -133,20 +133,20 @@ const Register = () => {
                 <FontAwesomeIcon icon={faTimes} />
               </span>
             </label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-              style={{ width: "300px" }}
-            />
-            <div style={{ position: "absolute" }}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input
+                type="text"
+                id="username"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setUser(e.target.value)}
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+                style={{ width: "300px" }}
+              />
               <p
                 id="uidnote"
                 className={
@@ -171,18 +171,19 @@ const Register = () => {
                 className={validEmail || !email ? "hide" : "invalid"}
               />
             </label>
-            <input
-              type="email"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-              aria-invalid={validEmail ? "false" : "true"}
-              aria-describedby="emailnote"
-              onFocus={() => setEmailFocus(true)}
-              onBlur={() => setEmailFocus(false)}
-            />
-            <div style={{ position: "absolute" }}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input
+                type="email"
+                id="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                aria-invalid={validEmail ? "false" : "true"}
+                aria-describedby="emailnote"
+                onFocus={() => setEmailFocus(true)}
+                onBlur={() => setEmailFocus(false)}
+                style={{ width: "300px" }}
+              />
               <p
                 id="emailnote"
                 className={
@@ -206,18 +207,19 @@ const Register = () => {
                 className={validPwd || !pwd ? "hide" : "invalid"}
               />
             </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
-            <div style={{ position: "absolute" }}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+                style={{ width: "300px" }}
+              />
               <p
                 id="pwdnote"
                 className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
