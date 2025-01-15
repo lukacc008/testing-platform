@@ -145,7 +145,6 @@ const Register = () => {
                 aria-describedby="uidnote"
                 onFocus={() => setUserFocus(true)}
                 onBlur={() => setUserFocus(false)}
-                style={{ width: "300px" }}
               />
               <p
                 id="uidnote"
@@ -182,7 +181,6 @@ const Register = () => {
                 aria-describedby="emailnote"
                 onFocus={() => setEmailFocus(true)}
                 onBlur={() => setEmailFocus(false)}
-                style={{ width: "300px" }}
               />
               <p
                 id="emailnote"
@@ -218,7 +216,6 @@ const Register = () => {
                 aria-describedby="pwdnote"
                 onFocus={() => setPwdFocus(true)}
                 onBlur={() => setPwdFocus(false)}
-                style={{ width: "300px" }}
               />
               <p
                 id="pwdnote"
