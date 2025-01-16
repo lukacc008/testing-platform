@@ -101,6 +101,7 @@ function TableRowComponent({ row, onDelete }) {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
+          variant="filled"
           onClose={handleSnackbarClose}
           severity="success" // Green color for success messages
           sx={{ width: "100%" }}
