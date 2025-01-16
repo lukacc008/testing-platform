@@ -10,11 +10,14 @@ import {
   DialogContentText,
   DialogTitle,
   Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 function TableRowComponent({ row, onDelete }) {
   const [openConfirm, setOpenConfirm] = useState(false); // State to open/close dialog
   const [selectedId, setSelectedId] = useState(null); // Store the ID of the row to be deleted
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
 
   // Handle opening the confirmation dialog
   const handleOpenConfirm = (id) => {
@@ -32,8 +35,15 @@ function TableRowComponent({ row, onDelete }) {
   const handleConfirmDelete = () => {
     if (selectedId) {
       onDelete(selectedId);
+      setSnackbarOpen(true); // Open Snackbar after successful deletion
     }
     handleCloseConfirm();
+  };
+
+  // Handle closing the Snackbar
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") return;
+    setSnackbarOpen(false);
   };
 
   return (
@@ -82,6 +92,22 @@ function TableRowComponent({ row, onDelete }) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Snackbar for Feedback */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={5000} // 5 seconds
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success" // Green color for success messages
+          sx={{ width: "100%" }}
+        >
+          Test result deleted successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
