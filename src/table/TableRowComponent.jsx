@@ -99,11 +99,12 @@ function TableRowComponent({ row, onDelete }) {
         autoHideDuration={5000} // 5 seconds
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        key={snackbarOpen ? "open" : "closed"} // Force re-render to prevent reset
       >
         <Alert
           variant="filled"
           onClose={handleSnackbarClose}
-          severity="success" // Green color for success messages
+          severity="success"
           sx={{ width: "100%" }}
         >
           Test result deleted successfully!
