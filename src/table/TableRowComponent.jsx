@@ -96,7 +96,7 @@ function TableRowComponent({ row, onDelete }) {
       {/* Snackbar for Feedback */}
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={5000} // 5 seconds
+        autoHideDuration={5000}
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         key={snackbarOpen ? "open" : "closed"} // Force re-render to prevent reset
