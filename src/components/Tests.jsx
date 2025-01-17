@@ -75,9 +75,9 @@ export default function Tests() {
 
   return (
     <Container sx={{ mt: 10 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Pick the test you want
-      </Typography>
+      <Typography variant="h4" component="h1" gutterBottom align="center">
+      Pick the test you want
+    </Typography>
       <Grid container spacing={3}>
         {testData.map((test, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
