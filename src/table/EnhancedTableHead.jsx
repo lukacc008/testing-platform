@@ -54,13 +54,8 @@ function EnhancedTableHead(props) {
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{
-              textAlign:
-                headCell.id === "createdAt"
-                  ? "center"
-                  : headCell.numeric
-                  ? "right"
-                  : "left", // Center horizontally
-              verticalAlign: "middle", // Center vertically
+              textAlign: "center", // Center text horizontally
+              verticalAlign: "middle", // Center content vertically
             }}
           >
             {headCell.id !== "actions" ? (
