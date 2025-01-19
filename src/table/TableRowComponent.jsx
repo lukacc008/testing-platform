@@ -50,11 +50,11 @@ function TableRowComponent({ row, onDelete }) {
     <>
       <TableRow>
         <TableCell align="left">{row.username}</TableCell>
-        <TableCell align="left">{row.email}</TableCell>
+        <TableCell align="center">{row.email}</TableCell>
         <TableCell align="center">{row.testId}</TableCell>
-        <TableCell align="right">{row.correctAnswersShare}%</TableCell>
-        <TableCell align="right">{row.skippedAnswersShare}%</TableCell>
-        <TableCell align="right">{row.wrongAnswersShare}%</TableCell>
+        <TableCell align="center">{row.correctAnswersShare}%</TableCell>
+        <TableCell align="center">{row.skippedAnswersShare}%</TableCell>
+        <TableCell align="center">{row.wrongAnswersShare}%</TableCell>
         <TableCell align="center">
           {new Date(row.createdAt).toLocaleString()}
         </TableCell>
