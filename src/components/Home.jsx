@@ -8,7 +8,7 @@ const Home = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "25vh", // Full viewport height
+        height: "35vh", // Full viewport height
         textAlign: "center", // Center text alignment
       }}
     >

@@ -50,48 +50,58 @@ export default function Header() {
 
   return (
     <header
-      style={{
-        borderBottom: "2px solid white",
-        width: "calc(100% - 20px)",
-        margin: "10px",
-        boxSizing: "border-box",
-      }}
+      className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)] m-[10px]"
     >
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
         <nav>
-          <ul>
+          <ul className="flex gap-4">
             {isAdmin && (
               <li>
-                <Link to="/results">Results</Link>
+                <Link to="/results" className="text-white hover:text-blue-500">
+                  Results
+                </Link>
               </li>
             )}
             {userLoggedIn && (
               <li>
-                <Link to="/tests">Tests</Link>
+                <Link to="/tests" className="text-white hover:text-blue-500">
+                  Tests
+                </Link>
               </li>
             )}
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/home" className="text-white hover:text-blue-500">
+                Home
+              </Link>
             </li>
             {!userLoggedIn ? (
               <>
                 <li>
-                  <Link to="/login">Sign in</Link>
+                  <Link to="/login" className="text-white hover:text-blue-500">
+                    Sign in
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/register">Register</Link>
+                  <Link to="/register" className="text-white hover:text-blue-500">
+                    Register
+                  </Link>
                 </li>
               </>
             ) : (
               <li>
-                <button onClick={handleOpenConfirm}>Logout</button>
+                <button
+                  onClick={handleOpenConfirm}
+                  className="text-white hover:text-blue-500"
+                >
+                  Logout
+                </button>
               </li>
             )}
           </ul>
         </nav>
       )}
-
+  
       {/* MUI Dialog for Logout Confirmation */}
       <Dialog
         open={openConfirm}
@@ -116,4 +126,5 @@ export default function Header() {
       </Dialog>
     </header>
   );
+  
 }
