@@ -49,9 +49,7 @@ export default function Header() {
   };
 
   return (
-    <header
-      className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)]"
-    >
+    <header className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)]">
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
         <nav>
@@ -83,7 +81,10 @@ export default function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/register" className="text-white hover:text-blue-500">
+                  <Link
+                    to="/register"
+                    className="text-white hover:text-blue-500"
+                  >
                     Register
                   </Link>
                 </li>
@@ -91,17 +92,17 @@ export default function Header() {
             ) : (
               <li>
                 <button
-                  onClick={handleOpenConfirm}
-                  className="text-white hover:text-blue-500"
-                >
-                  Logout
-                </button>
+  onClick={handleOpenConfirm}
+  className="text-white hover:text-blue-500 text-base font-normal inline-block p-0 m-0 border-0 bg-transparent"
+>
+  Logout
+</button>
               </li>
             )}
           </ul>
         </nav>
       )}
-  
+
       {/* MUI Dialog for Logout Confirmation */}
       <Dialog
         open={openConfirm}
@@ -119,12 +120,16 @@ export default function Header() {
           <Button onClick={handleCloseConfirm} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleConfirmLogout} color="primary" autoFocus className="text-white hover:text-blue-500 font-normal text-base">
+          <Button
+            onClick={handleConfirmLogout}
+            color="primary"
+            autoFocus
+            className="text-white hover:text-blue-500 font-normal text-base"
+          >
             Logout
           </Button>
         </DialogActions>
       </Dialog>
     </header>
   );
-  
 }
