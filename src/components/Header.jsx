@@ -50,7 +50,7 @@ export default function Header() {
 
   return (
     <header
-      className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)] m-[10px]"
+      className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)]"
     >
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
@@ -119,7 +119,7 @@ export default function Header() {
           <Button onClick={handleCloseConfirm} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleConfirmLogout} color="primary" autoFocus>
+          <Button onClick={handleConfirmLogout} color="primary" autoFocus className="text-white hover:text-blue-500 font-normal text-base">
             Logout
           </Button>
         </DialogActions>
