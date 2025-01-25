@@ -82,7 +82,7 @@ const Login = () => {
 
   return (
     <>
-  <p className="text-red-500 mt-5">
+  <p className="text-red-500 text-center mt-5 mb-5">
     NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE VERSION OF RENDER
   </p>
   {success ? (

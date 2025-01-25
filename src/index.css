@@ -351,7 +351,7 @@ a, a:visited {
 }
 
 /* Add a class or ID to wrap the forms you want to style */
-.form-container input[type="text"],
+/* .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="password"],
 .form-container button,
@@ -371,8 +371,9 @@ font-family: 'Nunito', sans-serif;
 font-size: 22px;
 padding: 0.25rem;
 border-radius: 0.5rem;
+color: #000;
 }
-label,
+label, */
 
 button {
 padding: 0.5rem;
