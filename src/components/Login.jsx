@@ -82,67 +82,94 @@ const Login = () => {
 
   return (
     <>
-      <p style={{ color: "red", display: "flex", justifyContent: "center" }}>
-        NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE
-        VERSION OF RENDER
+  <p className="text-red-500 mt-5">
+    NOTE: FIRST REQUEST MAY TAKE UP TO 40+ SECONDS DUE TO USING FREE VERSION OF RENDER
+  </p>
+  {success ? (
+    <section>
+      <Alert
+        variant="filled"
+        icon={<CheckIcon fontSize="inherit" />}
+        severity="success"
+      >
+        Successful login!
+      </Alert>
+      <p>
+        <Link to="/tests" className="text-blue-500 hover:underline">
+          Go to Tests
+        </Link>
       </p>
-      {success ? (
-        <section>
-          <Alert
-            variant="filled"
-            icon={<CheckIcon fontSize="inherit" />}
-            severity="success"
-          >
-            Successful login!
-          </Alert>
-          <p>
-            <Link to="/tests">Go to Tests</Link>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
+    </section>
+  ) : (
+    <section className="flex flex-col items-center p-6 bg-gray-800 rounded-md shadow-md">
+      <p
+        ref={errRef}
+        className={`${
+          errMsg ? "bg-pink-300 text-red-700 p-2 rounded" : "hidden"
+        }`}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
+      <h1 className="text-2xl text-white font-bold mb-6">Sign In</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 w-full max-w-sm"
+      >
+        <label htmlFor="username" className="text-white">
+          Username:
+        </label>
+        <input
+          type="text"
+          id="username"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+          required
+          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <button disabled={loading}>
-              {loading ? <CircularProgress size={50} sx={{ color: "white" }} /> : "Sign In"}
-            </button>
-          </form>
-          <p>
-            Need an Account?
-            <br />
-            <span className="line">
-              <Link to="/register">Sign Up</Link>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+        <label htmlFor="password" className="text-white">
+          Password:
+        </label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <button
+          disabled={loading}
+          className={`${
+            loading
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+          } text-white font-nunito text-lg p-3 rounded focus:outline-none`}
+        >
+          {loading ? (
+            <CircularProgress size={30} sx={{ color: "white" }} />
+          ) : (
+            "Sign In"
+          )}
+        </button>
+      </form>
+      <p className="text-gray-300 mt-4">
+        Need an Account?
+        <br />
+        <span className="line">
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Sign Up
+          </Link>
+        </span>
+      </p>
+    </section>
+  )}
+</>
+
   );
 };
 
