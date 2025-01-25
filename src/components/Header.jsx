@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex justify-between items-center p-4 relative border-b-2 border-white box-border w-[calc(100%-20px)]">
+    <header className="flex justify-between items-center p-4 relative border-b-2 border-white box-border">
       {/* Conditionally render nav links based on userReady */}
       {!userReady && (
         <nav>
