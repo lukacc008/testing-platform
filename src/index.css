@@ -350,6 +350,18 @@ a, a:visited {
   color: #fff;
 }
 
+/* Add a class or ID to wrap the forms you want to style */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container button,
+.form-container textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -360,11 +372,7 @@ font-size: 22px;
 padding: 0.25rem;
 border-radius: 0.5rem;
 }
-
 label,
-button {
-margin-top: 1rem;
-}
 
 button {
 padding: 0.5rem;
