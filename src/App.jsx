@@ -1,6 +1,6 @@
 import Home from "./components/Home.jsx";
 import Header from "./components/Header";
-import Quiz from "./components/Quiz";
+import Test from "./components/Test.jsx";
 import { Route, Routes, Navigate } from "react-router-dom"; // Removed BrowserRouter
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -33,18 +33,18 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route element={<PersistLogin />}>
-            <Route path="test" element={<Quiz />} />
+            <Route path="test" element={<Test />} />
             <Route
               path="/test/react"
-              element={<Quiz questions={reactQuestions} />} // React quiz
+              element={<Test questions={reactQuestions} />} // React quiz
             />
             <Route
               path="/test/javascript"
-              element={<Quiz questions={javascriptQuestions} />} // JavaScript quiz
+              element={<Test questions={javascriptQuestions} />} // JavaScript quiz
             />
             <Route
               path="/test/html-css"
-              element={<Quiz questions={htmlCssQuestions} />} // HTML & CSS quiz
+              element={<Test questions={htmlCssQuestions} />} // HTML & CSS quiz
             />
             <Route path="instructions" element={<StartScreen />} />
             <Route path="home" element={<Home />} />
