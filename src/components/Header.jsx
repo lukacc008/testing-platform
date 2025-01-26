@@ -50,86 +50,99 @@ export default function Header() {
 
   return (
     <header className="flex justify-between items-center p-4 relative border-b-2 border-white box-border">
-      {/* Conditionally render nav links based on userReady */}
-      {!userReady && (
-        <nav>
-          <ul className="flex gap-4">
-            {isAdmin && (
-              <li>
-                <Link to="/results" className="text-white hover:text-blue-500">
-                  Results
-                </Link>
-              </li>
-            )}
-            {userLoggedIn && (
-              <li>
-                <Link to="/tests" className="text-white hover:text-blue-500">
-                  Tests
-                </Link>
-              </li>
-            )}
+  {/* Conditionally render nav links based on userReady */}
+  {!userReady && (
+    <nav>
+      <ul className="flex gap-6"> {/* Increased gap between items */}
+        {isAdmin && (
+          <li>
+            <Link
+              to="/results"
+              className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
+            >
+              Results
+            </Link>
+          </li>
+        )}
+        {userLoggedIn && (
+          <li>
+            <Link
+              to="/tests"
+              className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
+            >
+              Tests
+            </Link>
+          </li>
+        )}
+        <li>
+          <Link
+            to="/home"
+            className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
+          >
+            Home
+          </Link>
+        </li>
+        {!userLoggedIn ? (
+          <>
             <li>
-              <Link to="/home" className="text-white hover:text-blue-500">
-                Home
+              <Link
+                to="/login"
+                className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
+              >
+                Sign in
               </Link>
             </li>
-            {!userLoggedIn ? (
-              <>
-                <li>
-                  <Link to="/login" className="text-white hover:text-blue-500">
-                    Sign in
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/register"
-                    className="text-white hover:text-blue-500"
-                  >
-                    Register
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li>
-                <button
-  onClick={handleOpenConfirm}
-  className="text-white hover:text-blue-500 text-base font-normal inline-block p-0 m-0 border-0 bg-transparent"
->
-  Logout
-</button>
-              </li>
-            )}
-          </ul>
-        </nav>
-      )}
+            <li>
+              <Link
+                to="/register"
+                className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
+              >
+                Register
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li>
+            <button
+              onClick={handleOpenConfirm}
+              className="text-white hover:text-blue-500 text-lg font-medium bg-transparent border-0 p-0 m-0" /* Increased font size */
+            >
+              Logout
+            </button>
+          </li>
+        )}
+      </ul>
+    </nav>
+  )}
 
-      {/* MUI Dialog for Logout Confirmation */}
-      <Dialog
-        open={openConfirm}
-        onClose={handleCloseConfirm}
-        aria-labelledby="logout-dialog-title"
-        aria-describedby="logout-dialog-description"
+  {/* MUI Dialog for Logout Confirmation */}
+  <Dialog
+    open={openConfirm}
+    onClose={handleCloseConfirm}
+    aria-labelledby="logout-dialog-title"
+    aria-describedby="logout-dialog-description"
+  >
+    <DialogTitle id="logout-dialog-title">Confirm Logout</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="logout-dialog-description">
+        Are you sure you want to logout?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleCloseConfirm} color="primary">
+        Cancel
+      </Button>
+      <Button
+        onClick={handleConfirmLogout}
+        color="primary"
+        autoFocus
+        className="text-white hover:text-blue-500 text-lg font-medium" /* Increased font size */
       >
-        <DialogTitle id="logout-dialog-title">Confirm Logout</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="logout-dialog-description">
-            Are you sure you want to logout?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirm} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleConfirmLogout}
-            color="primary"
-            autoFocus
-            className="text-white hover:text-blue-500 font-normal text-base"
-          >
-            Logout
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </header>
+        Logout
+      </Button>
+    </DialogActions>
+  </Dialog>
+</header>
+
   );
 }
