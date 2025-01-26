@@ -127,7 +127,7 @@ const Login = () => {
           onChange={(e) => setUser(e.target.value)}
           value={user}
           required
-          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 text-black focus:ring-blue-500"
         />
 
         <label htmlFor="password" className="text-white">
@@ -139,7 +139,7 @@ const Login = () => {
           onChange={(e) => setPwd(e.target.value)}
           value={pwd}
           required
-          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="font-nunito text-lg p-2 rounded border border-gray-500 focus:outline-none focus:ring-2 text-black focus:ring-blue-500"
         />
 
         <button

@@ -152,7 +152,7 @@ const Register = () => {
             aria-describedby="uidnote"
             onFocus={() => setUserFocus(true)}
             onBlur={() => setUserFocus(false)}
-            className="font-nunito text-lg p-2 w-full rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-nunito text-lg p-2 w-full text-black rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p
             id="uidnote"
@@ -185,7 +185,7 @@ const Register = () => {
             aria-describedby="emailnote"
             onFocus={() => setEmailFocus(true)}
             onBlur={() => setEmailFocus(false)}
-            className="font-nunito text-lg p-2 w-full rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-nunito text-lg p-2 w-full text-black rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p
             id="emailnote"
@@ -218,7 +218,7 @@ const Register = () => {
             aria-describedby="pwdnote"
             onFocus={() => setPwdFocus(true)}
             onBlur={() => setPwdFocus(false)}
-            className="font-nunito text-lg p-2 w-full rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-nunito text-lg p-2 w-full text-black rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p
             id="pwdnote"
@@ -259,7 +259,7 @@ const Register = () => {
             aria-describedby="confirmnote"
             onFocus={() => setMatchFocus(true)}
             onBlur={() => setMatchFocus(false)}
-            className="font-nunito text-lg p-2 w-full rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-nunito text-lg p-2 w-full text-black rounded border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p
             id="confirmnote"
