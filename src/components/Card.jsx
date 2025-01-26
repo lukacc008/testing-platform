@@ -1,13 +1,5 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import ButtonBase from "@mui/material/ButtonBase";
-import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
 export default function TestCard({
@@ -29,65 +21,33 @@ export default function TestCard({
       navigate(route);
     }
   };
- 
-  return (
-    <ButtonBase
-      onClick={handleCardClick}
-      sx={{ display: "block", textAlign: "inherit", width: "100%" }}
-      disabled={isCompleted}
-    >
-      <Card sx={{ position: "relative", margin: "auto" }}>
-        <CardHeader
-          title={
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h6">{title}</Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                {numQuestions && `${numQuestions} questions`}
-              </Typography>
-            </Box>
-          }
-        />
-        <CardMedia
-  component="img"
-  height="194"
-  image={image}
-  alt={title}
-  sx={{ objectFit: "cover" }}
-/>
-        <CardContent>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {description}
-          </Typography>
-        </CardContent>
 
-        {isCompleted && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              bgcolor: "rgba(0, 0, 0, 0.9)",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              p: 2,
-              zIndex: 1,
-            }}
-          >
-            <Typography variant="h6">Results for {testId} submitted</Typography>
-          </Box>
-        )}
-      </Card>
-    </ButtonBase>
+  return (
+    <div
+      className={`relative bg-white rounded-lg shadow-md overflow-hidden transition-transform transform ${
+        isCompleted ? "cursor-not-allowed opacity-50" : "hover:scale-105"
+      }`}
+      onClick={handleCardClick}
+    >
+      <div className="p-4 flex justify-between items-center">
+        <h2 className="text-lg font-semibold">{title}</h2>
+        <p className="text-sm text-gray-500">
+          {numQuestions && `${numQuestions} questions`}
+        </p>
+      </div>
+      <img
+        src={image}
+        alt={title}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-4">
+        <p className="text-sm text-gray-600">{description}</p>
+      </div>
+      {isCompleted && (
+        <div className="absolute inset-0 bg-black bg-opacity-90 flex items-center justify-center text-white text-center p-4">
+          <p className="text-lg font-semibold">Results for {testId} submitted</p>
+        </div>
+      )}
+    </div>
   );
 }

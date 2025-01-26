@@ -1,14 +1,10 @@
-import * as React from "react";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "../api/axios";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import TestCard from "./Card.jsx";
 import AuthContext from "../context/AuthProvider";
 import reactImg from "../assets/reactJS.png";
 import JsImg from "../assets/JavaScript.jpeg";
-import HtmlCss from "../assets/HtmlCss.jpg"
+import HtmlCss from "../assets/HtmlCss.jpg";
 import { reactQuestions, javascriptQuestions, htmlCssQuestions } from "../questions.js";
 
 const reactNumQuestions = reactQuestions.length;
@@ -53,17 +49,19 @@ export default function Tests() {
     const fetchCompletedTests = async () => {
       try {
         let accessToken = auth.accessToken;
-        
-        // If accessToken is missing, try refreshing it
+
         if (!accessToken) {
           accessToken = await refreshAccessToken();
         }
-        
-        const response = await axios.get(`/test-results/completed-tests/${auth.username}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+
+        const response = await axios.get(
+          `/test-results/completed-tests/${auth.username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
         setCompletedTests(new Set(response.data));
       } catch (error) {
         console.error("Error fetching completed tests:", error);
@@ -74,26 +72,25 @@ export default function Tests() {
   }, [auth.username, auth.accessToken, refreshAccessToken]);
 
   return (
-    <Container sx={{ mt: 10 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
-      Pick the test you want
-    </Typography>
-      <Grid container spacing={3}>
+    <div className="max-w-7xl mx-auto mt-10 px-4">
+      <h1 className="text-3xl font-bold text-center mb-6">
+        Pick the test you want
+      </h1>
+      <div className="grid grid-cols-1 text-black sm:grid-cols-2 md:grid-cols-3 gap-6">
         {testData.map((test, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <TestCard
-              title={test.title}
-              image={test.image}
-              description={test.description}
-              numQuestions={test.numQuestions}
-              route={test.route}
-              questions={test.questions}
-              testId={test.testId}
-              isCompleted={completedTests.has(test.testId)}
-            />
-          </Grid>
+          <TestCard
+            key={index}
+            title={test.title}
+            image={test.image}
+            description={test.description}
+            numQuestions={test.numQuestions}
+            route={test.route}
+            questions={test.questions}
+            testId={test.testId}
+            isCompleted={completedTests.has(test.testId)}
+          />
         ))}
-      </Grid>
-    </Container>
+      </div>
+    </div>
   );
 }
