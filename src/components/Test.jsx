@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { useState, useContext, useEffect, useCallback, useMemo } from "react";
 import AuthContext from "../context/AuthProvider.jsx";
 import QuestionTimer from "./QuestionTimer.jsx";
@@ -54,7 +53,14 @@ export default function Test() {
     }
     setShowAlert(false);
   };
-
+  
+  const shuffledAnswers = useMemo(() => {
+    if (!questions || !questions[activeQuestionIndex]) return [];
+    return [...questions[activeQuestionIndex].answers].sort(
+      () => Math.random() - 0.5
+    );
+  }, [questions, activeQuestionIndex]);
+  
   if (!selectedTest) {
     return <div>No test selected</div>;
   }
@@ -74,11 +80,6 @@ export default function Test() {
   }
 
   // Use useMemo to ensure answers are shuffled only once when the question changes
-  const shuffledAnswers = useMemo(() => {
-    return [...questions[activeQuestionIndex].answers].sort(
-      () => Math.random() - 0.5
-    );
-  }, [activeQuestionIndex]);
 
   return (
     <div

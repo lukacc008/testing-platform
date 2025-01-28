@@ -28,19 +28,22 @@ export default function QuestionTimer({ timeout, onTimeout }) {
   const seconds = Math.floor((remainingTime % 60000) / 1000); // Convert milliseconds to seconds
 
   return (
-    <div id="timer-container" style={{ display: "flex", alignItems: "center" }}>
+    <div className="flex items-center" style={{ display: "flex", alignItems: "center" }}>
       {/* Progress bar */}
       <progress
-        id="question-time"
+        className="progress-bar w-full h-4 rounded-full bg-blue-200"
         max={timeout}
         value={remainingTime}
         style={{ flexGrow: 1 }}
-      />
-
+      >
+        {/* Use Tailwind for styling */}
+      </progress>
+  
       {/* Time display */}
-      <span style={{ marginLeft: "10px", fontSize: "16px" }}>
+      <span className="ml-2 text-lg">
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds} {/* Add leading zero for seconds */}
       </span>
     </div>
   );
+  
 }
