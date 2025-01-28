@@ -24,7 +24,7 @@ export default function StartScreen() {
 
   return (
     <>
-      <div id="start" className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+      <div className="max-w-2xl mx-auto mt-10 p-6 bg-purple-400 shadow-md rounded-lg">
         <p className="text-lg font-semibold text-gray-800 text-center mb-4">
           By pressing the <span className="font-bold">'I AM READY'</span> button your test will begin.
         </p>
@@ -40,7 +40,7 @@ export default function StartScreen() {
         <div className="flex justify-center">
           <button
             onClick={handleClick}
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all"
+            className="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-950 transition-all"
           >
             I AM READY
           </button>
