@@ -12,8 +12,9 @@ export default function Test() {
   const [showAlert, setShowAlert] = useState(false);
   const { questions } = selectedTest || {};
 
+  const numQuestions = questions?.length || 0; // Total number of questions
   const activeQuestionIndex = userAnswers.length;
-  const quizIsComplete = activeQuestionIndex === questions?.length;
+  const quizIsComplete = activeQuestionIndex === numQuestions;
 
   const handleSelectAnswer = useCallback((selectedAnswer) => {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
@@ -79,10 +80,16 @@ export default function Test() {
     return <StartScreen />;
   }
 
-  // Use useMemo to ensure answers are shuffled only once when the question changes
-
   return (
     <section className="max-w-4xl mx-auto mt-10 p-8 bg-gray-800 rounded-md shadow-md text-center">
+      {/* 📌 Added Question Counter */}
+      {numQuestions > 0 && (
+        <p className="text-lg font-semibold text-white mb-4">
+          Question {activeQuestionIndex + 1} / {numQuestions}
+        </p>
+      )}
+
+      {/* Question Timer */}
       <div className="mb-6">
         <QuestionTimer
           key={activeQuestionIndex}
@@ -112,17 +119,8 @@ export default function Test() {
       </ul>
 
       {/* Snackbar Alert for Missed Questions */}
-      <Snackbar
-        open={showAlert}
-        autoHideDuration={5000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity="warning"
-          sx={{ width: "100%" }}
-          variant="filled"
-        >
+      <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity="warning" sx={{ width: "100%" }} variant="filled">
           You missed a question because the window lost focus.
         </Alert>
       </Snackbar>
