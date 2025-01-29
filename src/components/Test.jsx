@@ -53,14 +53,14 @@ export default function Test() {
     }
     setShowAlert(false);
   };
-  
+
   const shuffledAnswers = useMemo(() => {
     if (!questions || !questions[activeQuestionIndex]) return [];
     return [...questions[activeQuestionIndex].answers].sort(
       () => Math.random() - 0.5
     );
   }, [questions, activeQuestionIndex]);
-  
+
   if (!selectedTest) {
     return <div>No test selected</div>;
   }
@@ -82,26 +82,28 @@ export default function Test() {
   // Use useMemo to ensure answers are shuffled only once when the question changes
 
   return (
-    <div
-      className="max-w-7xl max-h-[70rem] mt-20 mx-auto p-20 bg-gradient-to-b from-purple-900 to-purple-800 rounded-lg shadow-lg text-center border-2 border-white"
-    >
-      <div className="mb-8">
+    <section className="max-w-4xl mx-auto mt-10 p-8 bg-gray-800 rounded-md shadow-md text-center">
+      <div className="mb-6">
         <QuestionTimer
           key={activeQuestionIndex}
           timeout={60000}
           onTimeout={handleSkipAnswer}
-          className="font-['Roboto_Condensed'] text-white bg-blue-500 p-4"
+          className="font-nunito text-white bg-blue-500 p-3 rounded-md"
         />
       </div>
-      <h2 className="text-3xl font-['Roboto_Condensed'] font-bold text-white mb-8">
+
+      {/* Question Text */}
+      <h2 className="text-2xl font-bold text-white mb-6">
         {questions[activeQuestionIndex].text}
       </h2>
-      <ul className="list-none m-0 p-0 flex flex-col items-center gap-2">
+
+      {/* Answer Choices */}
+      <ul className="w-full flex flex-col items-center gap-3">
         {shuffledAnswers.map((answer) => (
-          <li key={answer} className="answer w-[90%] mx-auto">
+          <li key={answer} className="w-[90%]">
             <button
               onClick={() => handleSelectAnswer(answer)}
-              className={`w-full font-['Roboto_Condensed'] text-sm py-4 px-8 bg-blue-400 text-white transition-all duration-200 hover:bg-purple-400 focus:bg-purple-400 selected:bg-orange-400 selected:text-purple-900 correct:bg-green-400 correct:text-purple-900 wrong:bg-pink-400 wrong:text-purple-900`}
+              className="w-full font-nunito text-lg py-3 px-6 bg-blue-500 text-white rounded-md transition-all duration-200 hover:bg-blue-600 focus:bg-blue-600"
             >
               {answer}
             </button>
@@ -109,7 +111,7 @@ export default function Test() {
         ))}
       </ul>
 
-      {/* MUI Snackbar to show the alert */}
+      {/* Snackbar Alert for Missed Questions */}
       <Snackbar
         open={showAlert}
         autoHideDuration={5000}
@@ -124,6 +126,6 @@ export default function Test() {
           You missed a question because the window lost focus.
         </Alert>
       </Snackbar>
-    </div>
+    </section>
   );
 }
