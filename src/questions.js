@@ -175,7 +175,7 @@ export const javascriptQuestions = [
   {
     id: "js2",
     text: "Which of the following is NOT a valid JavaScript data type?",
-    answers: ["Boolean", "String", "Integer", "Symbol"],
+    answers: ["Integer","Boolean","String","Symbol"],
   },
   {
     id: "js3",
