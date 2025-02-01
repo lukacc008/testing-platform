@@ -82,7 +82,6 @@ export default function Test() {
 
   return (
     <section className="max-w-4xl mx-auto mt-10 p-8 bg-gray-800 rounded-md shadow-md text-center">
-      {/* 📌 Added Question Counter */}
       {numQuestions > 0 && (
         <p className="text-lg font-semibold text-white mb-4">
           Question {activeQuestionIndex + 1} / {numQuestions}
