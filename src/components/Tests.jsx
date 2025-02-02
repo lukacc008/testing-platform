@@ -67,7 +67,7 @@ export default function Tests() {
         console.error("Error fetching completed tests:", error);
       }
     };
-
+ 
     if (auth.username) fetchCompletedTests();
   }, [auth.username, auth.accessToken, refreshAccessToken]);
 
