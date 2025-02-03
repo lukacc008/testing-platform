@@ -62,64 +62,73 @@ export default function Summary({ userAnswers }) {
   return (
     <div
       id="summary"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        minHeight: "100vh",
-        padding: "20px",
-      }}
+      className="flex flex-col justify-between min-h-screen p-6 bg-gray-900 text-white"
     >
       <div>
-        <h2>Test Finished!</h2>
-        <div id="summary-stats">
-          <p>
-            <span className="number">{skippedAnswersShare}%</span>
-            <span className="skipped">skipped</span>
+        <h2 className="text-3xl font-bold text-center mb-6">Test Finished!</h2>
+
+        <div
+          id="summary-stats"
+          className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8"
+        >
+          <p className="text-center">
+            <span className="block text-4xl font-extrabold text-yellow-400">
+              {skippedAnswersShare}%
+            </span>
+            <span className="text-sm uppercase tracking-wide text-gray-300">
+              Skipped
+            </span>
           </p>
-          <p>
-            <span className="number">{correctAnswersShare}%</span>
-            <span className="skipped">answered correctly</span>
+          <p className="text-center">
+            <span className="block text-4xl font-extrabold text-green-400">
+              {correctAnswersShare}%
+            </span>
+            <span className="text-sm uppercase tracking-wide text-gray-300">
+              Correct
+            </span>
           </p>
-          <p>
-            <span className="number">{wrongAnswersShare}%</span>
-            <span className="skipped">answered incorrectly</span>
+          <p className="text-center">
+            <span className="block text-4xl font-extrabold text-red-400">
+              {wrongAnswersShare}%
+            </span>
+            <span className="text-sm uppercase tracking-wide text-gray-300">
+              Incorrect
+            </span>
           </p>
         </div>
-        <ol>
+
+        <ol className="space-y-4">
           {userAnswers.map((answer, index) => {
-            let cssClass = "user-answer";
+            let baseClass =
+              "p-4 rounded-lg shadow-md text-white transition duration-200";
+            let cssClass = "";
 
             if (answer === null) {
-              cssClass += " skipped";
+              cssClass = "bg-yellow-500"; // Skipped
             } else if (answer === questions[index].answers[0]) {
-              cssClass += " correct";
+              cssClass = "bg-green-500"; // Correct
             } else {
-              cssClass += " wrong";
+              cssClass = "bg-red-500"; // Wrong
             }
 
             return (
-              <li key={index}>
-                <h3>{index + 1}</h3>
-                <p className="question">{questions[index].text}</p>
-                <p className={cssClass}>{answer ?? "Skipped"}</p>
+              <li key={index} className="bg-gray-800 p-4 rounded-lg shadow-md">
+                <h3 className="text-xl font-bold text-blue-400 mb-2">
+                  Question {index + 1}
+                </h3>
+                <p className="text-gray-300 mb-2">{questions[index].text}</p>
+                <p className={`${baseClass} ${cssClass}`}>
+                  {answer ?? "Skipped"}
+                </p>
               </li>
             );
           })}
         </ol>
       </div>
+
       <button
         onClick={handleGoToTests}
-        style={{
-          marginTop: "20px",
-          alignSelf: "center",
-          padding: "10px 15px",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
+        className="mt-6 self-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition duration-300"
       >
         Back to Tests
       </button>
