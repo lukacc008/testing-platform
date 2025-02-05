@@ -68,7 +68,7 @@ export default function Summary({ userAnswers }) {
         <h2 className="text-3xl font-bold text-center mb-6">Test Finished!</h2>
 
         <div
-          id="summary-stats"
+          // id="summary-stats"
           className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8"
         >
           <p className="text-center">

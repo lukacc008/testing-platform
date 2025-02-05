@@ -271,7 +271,7 @@ const Register = () => {
             password.
           </p>
         </div>
-
+ 
         {/* Submit Button */}
         <button
           disabled={
