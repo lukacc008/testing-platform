@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     console.log("Start button clicked, setting userReady to true...");
     setUserReady(true);
   };
-
+ 
   const refreshAccessToken = async () => {
     try {
       const response = await axios.get("/refresh", { withCredentials: true });
