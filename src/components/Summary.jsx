@@ -60,15 +60,19 @@ export default function Summary({ userAnswers }) {
   };
 
   return (
-    <div
-      className="flex flex-col justify-between min-h-screen p-6 bg-gray-900 text-white"
-    >
+    <div className="flex flex-col justify-between min-h-screen p-6 bg-gray-900 text-white">
       <div>
         <h2 className="text-3xl font-bold text-center mb-6">Test Finished!</h2>
-        <h2 className="text-3xl font-bold text-center mb-6">Scroll Down To Check Your Results And Proceed</h2>
-        <div
-          className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8"
-        >
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Scroll Down To Check Your Results And Proceed
+        </h2>
+        <button
+  onClick={handleGoToTests}
+  className="block mx-auto mb-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition duration-300"
+>
+  Back to Tests
+</button>
+        <div className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8">
           <p className="text-center">
             <span className="block text-4xl font-extrabold text-yellow-400">
               {skippedAnswersShare}%
