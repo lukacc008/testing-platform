@@ -61,14 +61,12 @@ export default function Summary({ userAnswers }) {
 
   return (
     <div
-      id="summary"
       className="flex flex-col justify-between min-h-screen p-6 bg-gray-900 text-white"
     >
       <div>
         <h2 className="text-3xl font-bold text-center mb-6">Test Finished!</h2>
-
+        <h2 className="text-3xl font-bold text-center mb-6">Scroll Down To Check Your Results And Proceed</h2>
         <div
-          // id="summary-stats"
           className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8"
         >
           <p className="text-center">

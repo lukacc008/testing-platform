@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -178,7 +178,7 @@ header {
   animation: slide-in-from-bottom 0.7s ease-out;
 }
 
-#start {
+/* #start {
   max-width: 60rem;
   margin: 2rem auto;
   padding: 5rem;
@@ -204,9 +204,9 @@ header {
 #start button:hover {
   background: #30273a;
   color: white;
-}
+} */
 
-#summary img {
+/* #summary img {
   display: block;
   width: 8rem;
   height: 8rem;
@@ -309,7 +309,7 @@ header {
   margin-top: -0.7rem;
   margin-left: 0.2rem;
   letter-spacing: 0.1rem;
-}
+} */
 
 @keyframes slide-in-from-bottom {
   0% {
