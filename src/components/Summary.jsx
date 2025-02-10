@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios.js";
 import AuthContext from "../context/AuthProvider";
 
 export default function Summary({ userAnswers }) {
   const { auth, selectedTest, setUserReady } = useContext(AuthContext);
   const { questions, testId } = selectedTest; // Dynamically get the correct set of questions and testId
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const skippedAnswers = userAnswers.filter((answer) => answer === null);
   const correctAnswers = userAnswers.filter(
@@ -40,7 +40,7 @@ export default function Summary({ userAnswers }) {
           },
         }
       );
-
+ 
       console.log("Test results saved successfully:", response.data.message);
     } catch (error) {
       console.error(
@@ -67,11 +67,11 @@ export default function Summary({ userAnswers }) {
           Scroll Down To Check Your Results And Proceed
         </h2>
         <button
-  onClick={handleGoToTests}
-  className="block mx-auto mb-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition duration-300"
->
-  Back to Tests
-</button>
+          onClick={handleGoToTests}
+          className="block mx-auto mb-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition duration-300"
+        >
+          Back to Tests
+        </button>
         <div className="flex justify-around bg-gray-800 p-4 rounded-lg shadow-md mb-8">
           <p className="text-center">
             <span className="block text-4xl font-extrabold text-yellow-400">
