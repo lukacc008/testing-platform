@@ -40,7 +40,7 @@ export default function Summary({ userAnswers }) {
           },
         }
       );
- 
+  
       console.log("Test results saved successfully:", response.data.message);
     } catch (error) {
       console.error(
