@@ -98,7 +98,7 @@ export default function Summary({ userAnswers }) {
             </span>
           </p>
         </div>
- 
+
         <ol className="space-y-4">
           {userAnswers.map((answer, index) => {
             let baseClass =
