@@ -104,7 +104,7 @@ export default function Summary({ userAnswers }) {
             let baseClass =
               "p-4 rounded-lg shadow-md text-white transition duration-200";
             let cssClass = "";
- 
+
             if (answer === null) {
               cssClass = "bg-yellow-500"; // Skipped
             } else if (answer === questions[index].answers[0]) {
